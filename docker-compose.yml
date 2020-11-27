@@ -1,22 +1,12 @@
 version: "3"
 
 services:
-  web:
-    environment:
-      NODE_ENV: development
-      RAILS_ENV: development
-      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
-      DB_USERNAME: root
-      DB_PASSWORD: root
-      DB_NAME: bosco_gurin
-      DB_PORT: 3306
-      DB_HOST: db
+  bosco_gurin:
+    env_file: .env
     build:
       context: .
       args:
-        USER_ID: 1000
-        GROUP_ID: 1000
-        APP_DIR: /home/user/bosco_gurin
+        APP_DIR: /bosco_gurin
 
     command: bash -c "rm -f tmp/pids/server.pid &&
       ./bin/webpack-dev-server &
@@ -24,7 +14,7 @@ services:
 
     volumes:
       # make sure this lines up with APP_DIR above
-      - .:/home/user/bosco_gurin
+      - .:/bosco_gurin
 
     ports:
       - "3000:3000"
@@ -34,7 +24,6 @@ services:
 
   db:
     image: mysql:5.7
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USERNAME: root
@@ -44,9 +33,10 @@ services:
       - '3306'
     volumes:
       - db_data:/var/run/mysqld
-    logging:
-      driver: none
+#    logging:
+#      driver: none
     ports:
       - 3306
+
 volumes:
   db_data:

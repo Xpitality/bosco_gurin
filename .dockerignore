@@ -27,4 +27,4 @@
 /node_modules
 /yarn-error.log
 yarn-debug.log*
-.ruby-gemset
+.env

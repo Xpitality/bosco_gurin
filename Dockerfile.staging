@@ -1,28 +1,34 @@
 FROM ruby:2.7.2 as builder
 
+# Add Yarn to the repository
 RUN curl https://deb.nodesource.com/setup_12.x | bash \
     && curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
     && apt-get update -qq && apt-get install -y \
-            default-libmysqlclient-dev build-essential imagemagick yarn nodejs libnotify-dev \
+               default-libmysqlclient-dev build-essential yarn nodejs libnotify-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# This is where we build the rails app
 FROM builder as rails-app
+
+EXPOSE 3000
 
 ARG APP_DIR=/bosco_gurin
 WORKDIR $APP_DIR
 
 COPY Gemfile* $APP_DIR/
+
 COPY package.json $APP_DIR
 COPY yarn.lock $APP_DIR
 
 ENV BUNDLER_VERSION=2.1.4
-RUN gem install bundler -v 2.1.4 \
-    && bundle install
+RUN bundle config set without 'development test'
+RUN gem install bundler -v 2.1.4
+RUN bundle install
 
 COPY . .
 
 RUN yarn install --check-files
+
+ARG SECRET_KEY_BASE=d5eb5837e545a3022d28f055e55b6a26326453bdfcc269bf347a3ba919dcf06088c84179dfd7d3af56480a41b6bd35bd1d0bcae225511d3b3ac7067f22e49857
 
 CMD ["rails", "server", "-b", "0.0.0.0"]
