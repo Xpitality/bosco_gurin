@@ -1,62 +1,32 @@
-# Pre setup stuff
 FROM ruby:2.7.2 as builder
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+ENV RAILS_ENV='staging'
+ENV RAKE_ENV='staging'
+
 # Add Yarn to the repository
-RUN curl https://deb.nodesource.com/setup_12.x | bash     && curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN curl https://deb.nodesource.com/setup_12.x | bash \
+    && curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get update -qq && apt-get install -y --no-install-recommends \
+               default-libmysqlclient-dev build-essential imagemagick yarn nodejs libnotify-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install system dependencies & clean them up
-RUN apt-get update -qq && apt-get install -y \
-    default-libmysqlclient-dev build-essential yarn nodejs \
-    libnotify-dev && \
-    rm -rf /var/lib/apt/lists/*
+FROM builder as gurin-app
 
-# This is where we build the rails app
-FROM builder as rails-app
+ENV HOME /app
+WORKDIR $HOME
 
-# Allow access to port 3000
+COPY ["Gemfile*", "package.json", "yarn.lock", "$HOME/"]
+
+RUN yarn install --pure-lockfile
+RUN bundle config set without 'development test' && gem install bundler -v 2.1.4 && bundle install
+
+COPY . $HOME
+
+RUN chmod +x /app/entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
+
 EXPOSE 3000
-
-# This is to fix an issue on Linux with permissions issues
-ARG USER_ID=1000
-ARG GROUP_ID=1000
-ARG APP_DIR=/home/user/bosco_gurin
-
-# Create a non-root user
-RUN groupadd --gid $GROUP_ID user
-RUN useradd --no-log-init --uid $USER_ID --gid $GROUP_ID user --create-home
-
-# Remove existing running server
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-
-# Permissions crap
-RUN mkdir -p $APP_DIR
-RUN chown -R $USER_ID:$GROUP_ID $APP_DIR
-
-
-# Define the user running the container
-USER $USER_ID:$GROUP_ID
-
-WORKDIR $APP_DIR
-
-# Install rails related dependencies
-COPY --chown=$USER_ID:$GROUP_ID Gemfile* $APP_DIR/
-
-# For webpacker / node_modules
-COPY --chown=$USER_ID:$GROUP_ID package.json $APP_DIR
-COPY --chown=$USER_ID:$GROUP_ID yarn.lock $APP_DIR
-
-ENV BUNDLER_VERSION=2.1.4
-RUN gem install bundler -v 2.1.4
-RUN bundle install
-
-# Copy over all files
-COPY --chown=$USER_ID:$GROUP_ID . .
-
-RUN yarn install --check-files
-
-
-ENTRYPOINT ["/usr/bin/entrypoint.sh"]
-
-# Start the main process.
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
