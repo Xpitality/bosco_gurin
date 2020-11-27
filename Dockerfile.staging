@@ -25,6 +25,8 @@ RUN bundle config set without 'development test' && gem install bundler -v 2.1.4
 
 COPY . $HOME
 
+RUN bundle exec rake assets:precompile
+
 RUN chmod +x /app/entrypoint.sh
 ENTRYPOINT ["/app/entrypoint.sh"]
 
