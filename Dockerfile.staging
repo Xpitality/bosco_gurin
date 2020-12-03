@@ -1,4 +1,5 @@
-FROM ruby:2.7.2 as builder
+#FROM ruby:2.7.2 as builder
+FROM public.ecr.aws/bitnami/ruby:2.7 as builder
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
