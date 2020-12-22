@@ -40,7 +40,7 @@ class InfoSnowXmlParser
                    16 => { de: 'geschlossen', fr: 'fermé', it: 'chiuso', en: 'closed' }
   }
 
-  STATE_TYPE_4 = { 0 => { de: 'no Info', fr: '', it: '', en: '' },
+  STATE_TYPE_5 = { 0 => { de: 'no Info', fr: '', it: '', en: '' },
                    1 => { de: '1 gering', fr: '1 faible', it: '1 debole', en: '1 low' },
                    2 => { de: '2 mässig', fr: '2 limité', it: '2 moderato', en: '2 moderate' },
                    3 => { de: '3 erheblich', fr: '3 marqué', it: '3 marcato', en: '3 considerable' },
@@ -48,13 +48,13 @@ class InfoSnowXmlParser
                    5 => { de: '5 sehr gross', fr: '5 très fort', it: '5 molte forte', en: '5 very high' }
   }
 
-  STATE_TYPE_5 = { 0 => { de: 'ausser Betrieb', fr: 'hors service', it: 'fuori servizio', en: 'Out of service' },
+  STATE_TYPE_6 = { 0 => { de: 'ausser Betrieb', fr: 'hors service', it: 'fuori servizio', en: 'Out of service' },
                    1 => { de: 'geschlossen', fr: 'fermé', it: 'chiuso', en: 'closed' },
                    2 => { de: 'besetzt', fr: 'occupé', it: 'occupato', en: 'occupied' },
                    3 => { de: 'frei', fr: 'disponible', it: 'disponibile', en: 'vacancy' }
   }
 
-  STATE_TYPE_6 = { 1 => { de: 'keine Info', fr: 'pas d\'info', it: 'senza info', en: 'no info' },
+  STATE_TYPE_7 = { 1 => { de: 'keine Info', fr: 'pas d\'info', it: 'senza info', en: 'no info' },
                    2 => { de: 'normal befahrbar', fr: 'praticable normalement', it: 'praticabile normalmente', en: 'normal' },
                    3 => { de: 'salznass', fr: 'salée', it: 'neve fradicia', en: 'salted' },
                    4 => { de: 'teilweise schneebedeckt', fr: 'partiellement enneigée', it: 'in parte innevato/a', en: 'partial snow cover' },
@@ -75,9 +75,9 @@ class InfoSnowXmlParser
       'RESTAURANT' => STATE_TYPE_3,
       'UNTERKUNFT' => STATE_TYPE_4,
       'DIVERSES' => STATE_TYPE_1,
-      'GEFAHR' => STATE_TYPE_4,
-      'PLS' => STATE_TYPE_5,
-      'STRASSENZUSTAND' => STATE_TYPE_6
+      'GEFAHR' => STATE_TYPE_5,
+      'PLS' => STATE_TYPE_6,
+      'STRASSENZUSTAND' => STATE_TYPE_7
   }
 
 
