@@ -56,7 +56,7 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
                 $PACKAGES  \
     && rm -rf /var/lib/apt/lists/*
     
- COPY . $HOME
+COPY . $HOME
 
 RUN chmod +x /app/entrypoint.sh
 ENTRYPOINT ["/app/entrypoint.sh"]
