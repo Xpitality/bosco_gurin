@@ -54,7 +54,7 @@ RUN curl https://deb.nodesource.com/setup_12.x | bash \
    && apt-get update -qq && apt-get install -y --no-install-recommends $PACKAGES  \
    && rm -rf /var/lib/apt/lists/*
     
-COPY --from=build-env . $HOME
+COPY --from=build-env $HOME $HOME
 
 RUN chmod +x /app/entrypoint.sh
 ENTRYPOINT ["/app/entrypoint.sh"]
