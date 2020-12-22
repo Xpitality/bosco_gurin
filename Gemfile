@@ -14,6 +14,8 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
+gem 'active_model_serializers'
+
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'devise'
@@ -25,12 +27,18 @@ gem 'execjs', '2.7.0'
 gem 'mobility', '~> 0.8.13'
 gem "administrate"
 gem "administrate-field-mobility", "0.0.1"
-gem 'administrate-field-paperclip'
-gem 'kt-paperclip'
-gem 'aws-sdk-s3'
+# gem 'administrate-field-paperclip'
+# gem 'kt-paperclip'
+# gem 'aws-sdk-s3'
+
+gem 'open-weather'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails', '~> 4.0.1'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'spring-commands-rspec'
 end
 
 group :development do
@@ -49,6 +57,9 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  gem 'airborne'
+  gem 'rspec-collection_matchers'
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
