@@ -20,9 +20,20 @@ class Event < ApplicationRecord
   translates :title, type: :string
   translates :text, type: :text
 
-  # has_attached_file :image,
-  #                   :storage => (ENV['AWS_ACCESS_KEY_ID'].nil? ? :file : :s3 )
-  #, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
-  # validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+  has_attached_file :image,
+                    storage: :s3,
+                    preserve_files: true,
+                    styles: { medium: "300x300>",
+                              thumb: "100x100>" },
+                    # default_url: "/images/:style/missing.png",
+                    url: ':s3_alias_url',
+                    # :s3_host_alias should be the CNAME you have set up.
+                    s3_host_alias: ENV['S3_HOST_ALIAS'],
+                    bucket: ENV['S3_BUCKET_NAME'],
+                    path: "#{Rails.env}/images/:class/:id.:style.:extension",
+                    s3_credentials: {
+                        s3_region: ENV['AWS_REGION']
+                    }
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
 end

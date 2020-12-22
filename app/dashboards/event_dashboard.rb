@@ -12,7 +12,7 @@ class EventDashboard < Administrate::BaseDashboard
     title: Field::Mobility::String,
     date_from: Field::Date,
     date_to: Field::Date,
-    # image: Field::Paperclip,
+    image: Field::Paperclip,
     text: Field::Mobility::Text,
     expiry_date: Field::Date,
     created_at: Field::DateTime,
@@ -35,6 +35,7 @@ class EventDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
   title
   text
+  image
   date_from
   date_to
   expiry_date
@@ -46,6 +47,7 @@ class EventDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
   title
   text
+  image
   date_from
   date_to
   expiry_date

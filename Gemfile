@@ -27,10 +27,9 @@ gem 'execjs', '2.7.0'
 gem 'mobility', '~> 0.8.13'
 gem "administrate"
 gem "administrate-field-mobility", "0.0.1"
-# gem 'administrate-field-paperclip'
-# gem 'kt-paperclip'
-# gem 'aws-sdk-s3'
-
+gem 'administrate-field-paperclip'
+gem 'kt-paperclip'
+gem 'aws-sdk-s3', require: false
 gem 'open-weather'
 
 group :development, :test do
