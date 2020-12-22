@@ -5,6 +5,8 @@ ENV RAILS_ENV='staging'
 ENV RAKE_ENV='staging'
 ENV NODE_ENV='staging'
 
+ENV DOMAIN_NAME="gurin.xptesting.com"
+
 ENV HOME /app
 WORKDIR $HOME
 
