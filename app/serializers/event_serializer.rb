@@ -17,15 +17,15 @@
 #
 class EventSerializer < BaseSerializer
   attribute :date_from do
-    object.date_from.in_time_zone('Rome').strftime("%d-%m-%Y")
+    object.date_from.in_time_zone('Rome').strftime("%d-%m-%Y") if object.date_from
   end
 
   attribute :date_to do
-    object.date_from.in_time_zone('Rome').strftime("%d-%m-%Y")
+    object.date_to.in_time_zone('Rome').strftime("%d-%m-%Y") if object.date_to
   end
 
   attribute :expiry_date do
-    object.date_from.in_time_zone('Rome').strftime("%d-%m-%Y")
+    object.expiry_date.in_time_zone('Rome').strftime("%d-%m-%Y") if object.expiry_date
   end
 
   attribute :title do
@@ -34,5 +34,9 @@ class EventSerializer < BaseSerializer
 
   attribute :text do
     Hash[I18n.available_locales.map{|l| [l, object.send("text_#{l}".to_sym)] }]
+  end
+
+  attribute :image do
+    Hash[%w(original medium thumb).map{|style| [style, object.image.url(style.to_sym)]}]
   end
 end

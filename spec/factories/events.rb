@@ -26,13 +26,11 @@ FactoryBot.define do
     title_it { Faker::Lorem.sentence }
     title_de { Faker::Lorem.sentence }
     title_fr { Faker::Lorem.sentence }
-    title_es { Faker::Lorem.sentence }
     text_en { Faker::Lorem.paragraph }
     text_it { Faker::Lorem.paragraph }
     text_de { Faker::Lorem.paragraph }
     text_fr { Faker::Lorem.paragraph }
-    text_es { Faker::Lorem.paragraph }
-    # image { fixture_file_upload(Rails.root.join('spec', 'photos', 'test.png'), 'image/png') }
+    # image { fixture_file_upload('/bosco_gurin/spec/photos/test.png', 'image/png') }
     # image { fixture_file_upload(Rails.root.join('public', 'apple-touch-icon-precomposed.png'), 'image/png') }
   end
 end
