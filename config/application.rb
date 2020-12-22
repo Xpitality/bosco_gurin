@@ -19,5 +19,6 @@ module BoscoGurin
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.available_locales = [:it, :en, :de, :fr]
     config.i18n.default_locale = :en
+    config.action_controller.default_protect_from_forgery = true
   end
 end
