@@ -1,28 +1,65 @@
-FROM ruby:2.7.2 as builder
+FROM public.ecr.aws/bitnami/ruby:2.7 as build-env
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+ENV RAILS_ENV='production'
+ENV RAKE_ENV='production'
+ENV NODE_ENV='production'
+
+ENV HOME /app
+WORKDIR $HOME
+
+ARG BUILD_PACKAGES="build-essential"
+ARG DEV_PACKAGES="libnotify-dev yaml-dev zlib-dev nodejs yarn default-libmysqlclient-dev"
+ARG RUBY_PACKAGES="tzdata imagemagick"
+
+# Add Yarn to the repository
 RUN curl https://deb.nodesource.com/setup_12.x | bash \
     && curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-    && apt-get update -qq && apt-get install -y \
-            default-libmysqlclient-dev build-essential imagemagick yarn nodejs libnotify-dev \
+    && apt-get update -qq && apt-get install -y --no-install-recommends \
+                $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES  \
     && rm -rf /var/lib/apt/lists/*
 
-# This is where we build the rails app
-FROM builder as rails-app
+COPY ["Gemfile*", "package.json", "yarn.lock", "$HOME/"]
 
-ARG APP_DIR=/bosco_gurin
-WORKDIR $APP_DIR
+RUN bundle config \
+    && bundle install --without development:test:assets -j4 --retry 3 --path=vendor/bundle \
+    # Remove unneeded files (cached *.gem, *.o, *.c)
+    && rm -rf vendor/bundle/ruby/2.7.0/cache/*.gem \
+    && find vendor/bundle/ruby/2.7.0/gems/ -name "*.c" -delete \
+    && find vendor/bundle/ruby/2.7.0/gems/ -name "*.o" -delete
 
-COPY Gemfile* $APP_DIR/
-COPY package.json $APP_DIR
-COPY yarn.lock $APP_DIR
+RUN yarn install --pure-lockfile --production
+RUN bin/rails webpacker:compile
 
-ENV BUNDLER_VERSION=2.1.4
-RUN gem install bundler -v 2.1.4 \
-    && bundle install
+COPY . $HOME
 
-COPY . .
+# Remove folders not needed in resulting image
+RUN rm -rf node_modules tmp/cache app/assets vendor/assets spec
 
-RUN yarn install --check-files
+############### Build step done ###############
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+FROM public.ecr.aws/bitnami/ruby:2.7
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+ENV RAILS_ENV='production'
+ENV RAKE_ENV='production'
+ENV NODE_ENV='production'
+
+ENV HOME /app
+WORKDIR $HOME
+
+ARG PACKAGES="tzdata imagemagick nodejs"
+
+# Add Yarn to the repository
+RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+                $PACKAGES  \
+    && rm -rf /var/lib/apt/lists/*
+    
+ COPY . $HOME
+
+RUN chmod +x /app/entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
+
+EXPOSE 3000
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
