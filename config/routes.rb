@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :locations
     resources :events
     resources :users
+    get 'info_snow', to: 'info_snow#show'
     root to: "locations#index"
   end
   devise_for :users
