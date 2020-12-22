@@ -1334,7 +1334,7 @@ example of response from `/api/v1/events`
    ]
 }
 ```
-example of response from `/api/v1/events`
+example of response from `/api/v1/locations`
 ```
 {
    "locations":[
