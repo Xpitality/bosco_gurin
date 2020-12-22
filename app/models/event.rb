@@ -20,6 +20,12 @@ class Event < ApplicationRecord
   translates :title, type: :string
   translates :text, type: :text
 
+  validates :title, presence: true
+  validates :text, presence: true
+  validates :date_from, presence: true
+  validates :date_to, presence: true
+  validates :expiry_date, presence: true
+
   has_attached_file :image,
                     storage: :s3,
                     preserve_files: true,

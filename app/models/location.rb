@@ -19,6 +19,11 @@ class Location < ApplicationRecord
 
   store :open_weather_report
 
+  validates :name, presence: true
+  validates :lat, presence: true, format: { with: /\d+\.\d+/, message: 'has incorrect format' }
+  validates :lng, presence: true, format: { with: /\d+\.\d+/, message: 'has incorrect format' }
+  validates :elevation, presence: true, format: { with: /\d+/, message: 'has incorrect format' }
+
   def weather_refresh_needed?
     open_weather_time.nil? || open_weather_time > 2.minute.ago
   end
@@ -26,7 +31,7 @@ class Location < ApplicationRecord
   def weather_refresh
     if self.weather_refresh_needed? && !self.lat.nil? && !self.lng.nil? && ENV['OPENWEATHER_KEY']
       options = { units: "metric", APPID: ENV['OPENWEATHER_KEY'] }
-      self.open_weather_report = OpenWeather::Current.geocode(self.lat, self.lng , options)
+      self.open_weather_report = OpenWeather::Current.geocode(self.lat, self.lng, options)
       if self.open_weather_report[:cod] == 200
         self.open_weather_time = Time.now
         self.save

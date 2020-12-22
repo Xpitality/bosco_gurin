@@ -14,6 +14,8 @@ class LocationDashboard < Administrate::BaseDashboard
     lat: Field::String,
     elevation: Field::Number,
     webcam: Field::String,
+    open_weather_report: Field::Text,
+    open_weather_time: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -39,6 +41,8 @@ class LocationDashboard < Administrate::BaseDashboard
   lat
   elevation
   webcam
+  open_weather_report
+  open_weather_time
   created_at
   updated_at
   ].freeze
