@@ -27,6 +27,8 @@ RUN bundle config set without 'development:test:assets' \
     && rm -rf vendor/bundle/ruby/2.7.0/cache/*.gem \
     && find vendor/bundle/ruby/2.7.0/gems/ -name "*.c" -delete \
     && find vendor/bundle/ruby/2.7.0/gems/ -name "*.o" -delete
+    
+RUN bundle exec rake assets:precompile
 
 RUN yarn install --pure-lockfile
 
