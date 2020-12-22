@@ -8,11 +8,10 @@ ENV NODE_ENV='production'
 ENV HOME /app
 WORKDIR $HOME
 
+# Add Yarn to the repository and install necessary packages
 ARG BUILD_PACKAGES="build-essential"
 ARG DEV_PACKAGES="libnotify-dev yaml-dev zlib-dev nodejs yarn default-libmysqlclient-dev"
 ARG RUBY_PACKAGES="tzdata imagemagick"
-
-# Add Yarn to the repository
 RUN curl https://deb.nodesource.com/setup_12.x | bash \
     && curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
@@ -39,7 +38,7 @@ RUN rm -rf node_modules tmp/cache app/assets vendor/assets spec
 
 ############### Build step done ###############
 
-FROM public.ecr.aws/bitnami/ruby:2.7
+FROM public.ecr.aws/bitnami/ruby:2.7-prod
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV RAILS_ENV='production'
@@ -49,9 +48,8 @@ ENV NODE_ENV='production'
 ENV HOME /app
 WORKDIR $HOME
 
+# Install necessary packages
 ARG PACKAGES="tzdata imagemagick nodejs"
-
-# Add Yarn to the repository
 RUN apt-get update -qq && apt-get install -y --no-install-recommends \
                 $PACKAGES  \
     && rm -rf /var/lib/apt/lists/*
