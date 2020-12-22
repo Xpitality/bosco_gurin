@@ -34,6 +34,7 @@ gem 'open-weather'
 
 # needed by sendgrid
 gem 'mail-x_smtpapi'
+gem 'premailer-rails'
 
 
 group :development, :test do
