@@ -48,7 +48,7 @@ module Admin
 
       resource.password = SecureRandom.hex(13)
       resource.password_confirmation = resource.password
-      resource.confirm
+      # resource.confirm
 
       if resource.save
         token, enc = Devise.token_generator.generate(User, :reset_password_token)
