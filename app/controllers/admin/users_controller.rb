@@ -42,5 +42,30 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
+
+    def create
+      resource = resource_class.new(resource_params)
+
+      resource.password = SecureRandom.hex(13)
+      resource.password_confirmation = resource.password
+      resource.confirm
+
+      if resource.save
+        token, enc = Devise.token_generator.generate(User, :reset_password_token)
+
+        resource.reset_password_token   = enc
+        resource.reset_password_sent_at = Time.now.utc
+        resource.save(validate: false)
+
+        redirect_to(
+            [namespace, resource],
+            notice: translate_with_resource("create.success"),
+            )
+      else
+        render :new, locals: {
+            page: Administrate::Page::Form.new(dashboard, resource),
+        }
+      end
+    end
   end
 end
