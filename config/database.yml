@@ -1,3 +1,4 @@
+
 default: &default
   adapter: mysql2
   encoding: utf8
@@ -7,13 +8,12 @@ default: &default
   port: <%= ENV['DB_PORT'] %>
   host: <%= ENV['DB_HOST'] %>
   database: <%= ENV['DB_NAME'] %>
-  socket: /var/run/mysqld/mysqlx.sock
 
 development:
   <<: *default
-  database: bosco_gurin_development
+
+staging:
+  <<: *default
 
 test:
   <<: *default
-  database: bosco_gurin_test
-
