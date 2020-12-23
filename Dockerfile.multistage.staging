@@ -1,11 +1,10 @@
 FROM public.ecr.aws/bitnami/ruby:2.7 as build-env
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ENV RAILS_ENV='staging'
-ENV RAKE_ENV='staging'
-ENV NODE_ENV='staging'
+ARG RAILS_ENV=$RAILS_ENV
+ARG NODE_ENV='$NODE_ENV
 
-ENV DOMAIN_NAME=$DOMAIN_NAME
+ARG DOMAIN_NAME=$DOMAIN_NAME
 ARG SECRET_KEY_BASE=$SECRET_KEY_BASE
 
 ENV HOME /app
@@ -45,9 +44,8 @@ RUN rm -rf node_modules tmp/cache app/assets/images app/assets/stylesheets vendo
 FROM public.ecr.aws/bitnami/ruby:2.7-prod
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ENV RAILS_ENV='staging'
-ENV RAKE_ENV='staging'
-ENV NODE_ENV='staging'
+ARG RAILS_ENV=$RAILS_ENV
+ARG NODE_ENV='$NODE_ENV
 
 ARG DOMAIN_NAME=$DOMAIN_NAME
 ARG SECRET_KEY_BASE=$SECRET_KEY_BASE
