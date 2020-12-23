@@ -34,7 +34,7 @@ RUN yarn install --pure-lockfile
 
 COPY . $HOME
 
-RUN bundle exec rake assets:precompile
+RUN RAILS_ENV=staging bundle exec rake assets:precompile
 
 # Remove folders not needed in resulting image
 RUN rm -rf node_modules tmp/cache app/assets/images app/assets/stylesheets vendor/assets spec
