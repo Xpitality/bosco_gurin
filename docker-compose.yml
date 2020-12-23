@@ -5,6 +5,7 @@ services:
     env_file: .env
     build:
       context: .
+      dockerfile: Dockerfile.dev
       args:
         APP_DIR: /bosco_gurin
 
