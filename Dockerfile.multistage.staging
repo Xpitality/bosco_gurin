@@ -2,7 +2,7 @@ FROM public.ecr.aws/bitnami/ruby:2.7 as build-env
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ARG RAILS_ENV=$RAILS_ENV
-ARG NODE_ENV='$NODE_ENV
+ARG NODE_ENV=$NODE_ENV
 
 ARG DOMAIN_NAME=$DOMAIN_NAME
 ARG SECRET_KEY_BASE=$SECRET_KEY_BASE
@@ -45,7 +45,7 @@ FROM public.ecr.aws/bitnami/ruby:2.7-prod
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ARG RAILS_ENV=$RAILS_ENV
-ARG NODE_ENV='$NODE_ENV
+ARG NODE_ENV=$NODE_ENV
 
 ARG DOMAIN_NAME=$DOMAIN_NAME
 ARG SECRET_KEY_BASE=$SECRET_KEY_BASE
