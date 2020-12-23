@@ -17,15 +17,15 @@
 #
 class EventSerializer < BaseSerializer
   attribute :date_from do
-    object.date_from.in_time_zone('Rome').strftime("%d-%m-%Y") if object.date_from
+    object.date_from.in_time_zone('Rome').strftime("%Y-%m-%d") if object.date_from
   end
 
   attribute :date_to do
-    object.date_to.in_time_zone('Rome').strftime("%d-%m-%Y") if object.date_to
+    object.date_to.in_time_zone('Rome').strftime("%Y-%m-%d") if object.date_to
   end
 
   attribute :expiry_date do
-    object.expiry_date.in_time_zone('Rome').strftime("%d-%m-%Y") if object.expiry_date
+    object.expiry_date.in_time_zone('Rome').strftime("%Y-%m-%d") if object.expiry_date
   end
 
   attribute :title do
