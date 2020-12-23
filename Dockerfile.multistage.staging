@@ -36,7 +36,7 @@ RUN yarn install --pure-lockfile
 
 COPY . $HOME
 
-RUN bundle exec rails webpacker:install
+RUN bundle exec rails webpacker:install \
    && bundle exec rake assets:precompile
 
 # Remove folders not needed in resulting image
