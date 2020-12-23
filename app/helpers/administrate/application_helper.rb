@@ -3,11 +3,7 @@ module Administrate
     PLURAL_MANY_COUNT = 2.1
 
     def pushed_notification
-      notification = Notification.last
-      if notification
-        notification = nil unless notification.pushed
-      end
-      notification
+      Notification.pushed.first
     end
 
 
