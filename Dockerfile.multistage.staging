@@ -1,12 +1,13 @@
 FROM public.ecr.aws/bitnami/ruby:2.7 as build-env
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ENV RAILS_ENV='staging'
-ENV RAKE_ENV='staging'
-ENV NODE_ENV='staging'
+ARG RAILS_VAR=$RAILS_ENV
+ARG NODE_VAR=$NODE_ENV
+ENV RAILS_ENV=$RAILS_VAR
+ENV NODE_ENV=$NODE_VAR
 
-ENV DOMAIN_NAME=$DOMAIN_NAME
-ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
+ARG DOMAIN_NAME=$DOMAIN_NAME
+ARG SECRET_KEY_BASE=$SECRET_KEY_BASE
 
 ENV HOME /app
 WORKDIR $HOME
@@ -35,7 +36,8 @@ RUN yarn install --pure-lockfile
 
 COPY . $HOME
 
-RUN bundle exec rake assets:precompile
+RUN bundle exec rails webpacker:install \
+   && bundle exec rake assets:precompile
 
 # Remove folders not needed in resulting image
 RUN rm -rf node_modules tmp/cache app/assets/images app/assets/stylesheets vendor/assets spec
@@ -45,12 +47,11 @@ RUN rm -rf node_modules tmp/cache app/assets/images app/assets/stylesheets vendo
 FROM public.ecr.aws/bitnami/ruby:2.7-prod
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ENV RAILS_ENV='staging'
-ENV RAKE_ENV='staging'
-ENV NODE_ENV='staging'
+#ARG RAILS_ENV=$RAILS_ENV
+#ARG NODE_ENV=$NODE_ENV
 
-ENV DOMAIN_NAME=$DOMAIN_NAME
-ENV SECRET_KEY_BASE=$SECRET_KEY_BASE
+#ARG DOMAIN_NAME=$DOMAIN_NAME
+#ARG SECRET_KEY_BASE=$SECRET_KEY_BASE
 
 ENV HOME /app
 WORKDIR $HOME
