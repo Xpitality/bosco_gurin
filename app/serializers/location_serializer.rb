@@ -14,9 +14,9 @@
 #  updated_at          :datetime         not null
 #
 class LocationSerializer < BaseSerializer
-  attributes :id, :elevation, :lat, :lng, :name, :webcam, :open_weather_time, :open_weather_report
-
-  attribute :date do
-    object.created_at.in_time_zone('Rome').strftime("%Y-%m-%d")
-  end
+  attributes :elevation, :lat, :lng, :name, :webcam, :open_weather_time, :open_weather_report
+  #
+  # attribute :created_at do
+  #   object.created_at.in_time_zone('Rome').strftime("%Y-%m-%d")
+  # end
 end
