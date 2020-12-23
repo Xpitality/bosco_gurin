@@ -5,6 +5,8 @@ ENV RAILS_ENV='staging'
 ENV RAKE_ENV='staging'
 ENV NODE_ENV='staging'
 
+ENV DOMAIN_NAME=$DOMAIN_NAME
+
 ENV HOME /app
 WORKDIR $HOME
 
@@ -45,6 +47,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV RAILS_ENV='staging'
 ENV RAKE_ENV='staging'
 ENV NODE_ENV='staging'
+
+ENV DOMAIN_NAME=$DOMAIN_NAME
 
 ENV HOME /app
 WORKDIR $HOME
