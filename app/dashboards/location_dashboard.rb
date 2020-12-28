@@ -16,6 +16,7 @@ class LocationDashboard < Administrate::BaseDashboard
     webcam: Field::String,
     open_weather_report: Field::Text,
     open_weather_time: Field::DateTime,
+    show_weather: Field::Boolean,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -28,6 +29,7 @@ class LocationDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
   id
   name
+  show_weather
   lng
   lat
   ].freeze
@@ -41,6 +43,7 @@ class LocationDashboard < Administrate::BaseDashboard
   lat
   elevation
   webcam
+  show_weather
   open_weather_report
   open_weather_time
   created_at
@@ -52,6 +55,7 @@ class LocationDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
   name
+  show_weather
   lng
   lat
   elevation

@@ -9,6 +9,7 @@
 #  name                :string(255)
 #  open_weather_report :text(65535)
 #  open_weather_time   :datetime
+#  show_weather        :boolean
 #  webcam              :string(255)
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -19,13 +20,15 @@ class Location < ApplicationRecord
 
   store :open_weather_report
 
+  OPEN_WEATHER_REFRESH_MINUTES = 60
+
   validates :name, presence: true
   validates :lat, presence: true, format: { with: /\d+\.\d+/, message: 'has incorrect format' }
   validates :lng, presence: true, format: { with: /\d+\.\d+/, message: 'has incorrect format' }
   validates :elevation, presence: true, format: { with: /\d+/, message: 'has incorrect format' }
 
   def weather_refresh_needed?
-    open_weather_time.nil? || open_weather_time > 2.minute.ago
+    self.show_weather? && (open_weather_time.nil? || open_weather_time > OPEN_WEATHER_REFRESH_MINUTES.minute.ago)
   end
 
   def weather_refresh

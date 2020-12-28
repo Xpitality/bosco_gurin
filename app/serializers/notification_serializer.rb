@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: notifications
+#
+#  id         :bigint           not null, primary key
+#  pushed     :boolean          default(FALSE)
+#  text       :text(65535)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class NotificationSerializer < BaseSerializer
   attribute :text do
     Hash[I18n.available_locales.map{|l| [l, object.send("text_#{l}".to_sym)] }]

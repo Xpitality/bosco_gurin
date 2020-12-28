@@ -9,6 +9,7 @@
 #  name                :string(255)
 #  open_weather_report :text(65535)
 #  open_weather_time   :datetime
+#  show_weather        :boolean
 #  webcam              :string(255)
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
