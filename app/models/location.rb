@@ -9,7 +9,7 @@
 #  name                :string(255)
 #  open_weather_report :text(65535)
 #  open_weather_time   :datetime
-#  show_weather        :boolean
+#  weather_forecast    :boolean
 #  webcam              :string(255)
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
@@ -20,7 +20,7 @@ class Location < ApplicationRecord
 
   OPEN_WEATHER_REFRESH_MINUTES = 60
 
-  validates_uniqueness_of :show_weather, message:'can be enabled for only one location', if: :show_weather
+  validates_uniqueness_of :weather_forecast, message:'can be enabled for only one location', if: :weather_forecast
 
   store :open_weather_report
 
@@ -31,16 +31,21 @@ class Location < ApplicationRecord
   validates :elevation, presence: true, format: { with: /\d+/, message: 'has incorrect format' }
 
   def weather_refresh_needed?
-    self.show_weather? && (open_weather_time.nil? || open_weather_time > OPEN_WEATHER_REFRESH_MINUTES.minute.ago)
+    open_weather_time.nil? || open_weather_time > OPEN_WEATHER_REFRESH_MINUTES.minute.ago
   end
 
   def weather_refresh
     if self.weather_refresh_needed? && !self.lat.nil? && !self.lng.nil? && ENV['OPENWEATHER_KEY']
-      self.open_weather_report = OpenWeather.new.one_call(self.lat, self.lng)
+      if self.weather_forecast
+        self.open_weather_report = OpenWeather.new.one_call(self.lat, self.lng)
+      else
+        self.open_weather_report = OpenWeather.new.one_call(self.lat, self.lng, true)
+      end
       if self.open_weather_report[:cod] == 200
         self.open_weather_time = Time.now
         self.save
       end
+
     end
   end
 end

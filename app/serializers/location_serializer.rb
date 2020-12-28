@@ -9,20 +9,11 @@
 #  name                :string(255)
 #  open_weather_report :text(65535)
 #  open_weather_time   :datetime
-#  show_weather        :boolean
+#  weather_forecast    :boolean
 #  webcam              :string(255)
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #
 class LocationSerializer < BaseSerializer
-  attributes :elevation, :lat, :lng, :name, :webcam, :open_weather_time, :show_weather
-
-  attribute :open_weather_report do
-    if object.show_weather
-      object.open_weather_report
-    else
-      {}
-    end
-  end
-
+  attributes :elevation, :lat, :lng, :name, :webcam, :open_weather_time, :weather_forecast, :open_weather_report
 end

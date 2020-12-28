@@ -10,6 +10,8 @@ describe Api::V1::LocationsController, type: :request do
 
     get endpoint, headers: headers
 
+    puts response.body
+
     expect(response.content_type).to eq("application/json; charset=utf-8")
     expect(response).to have_http_status(:success)
     expect_json_types(locations: :array_of_objects)

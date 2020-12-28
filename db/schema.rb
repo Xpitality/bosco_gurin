@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_28_092451) do
+ActiveRecord::Schema.define(version: 2020_12_28_132401) do
 
   create_table "contacts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2020_12_28_092451) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "open_weather_report"
     t.datetime "open_weather_time"
-    t.boolean "show_weather"
+    t.boolean "weather_forecast"
   end
 
   create_table "mobility_string_translations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
