@@ -42,27 +42,5 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
-
-
-    def update
-      old_show_weather = requested_resource.show_weather
-
-      if requested_resource.update(resource_params)
-        if requested_resource.show_weather
-          Location.where.not(id: requested_resource.id).update_all(show_weather: false)
-        elsif old_show_weather
-          requested_resource.update show_weather: true
-        end
-
-        redirect_to(
-            [namespace, requested_resource],
-            notice: translate_with_resource("update.success"),
-            )
-      else
-        render :edit, locals: {
-            page: Administrate::Page::Form.new(dashboard, requested_resource),
-        }
-      end
-    end
   end
 end

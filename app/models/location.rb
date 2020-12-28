@@ -18,9 +18,12 @@
 require 'open_weather'
 class Location < ApplicationRecord
 
+  OPEN_WEATHER_REFRESH_MINUTES = 60
+
+  validates_uniqueness_of :show_weather, message:'can be enabled for only one location', if: :show_weather
+
   store :open_weather_report
 
-  OPEN_WEATHER_REFRESH_MINUTES = 60
 
   validates :name, presence: true
   validates :lat, presence: true, format: { with: /\d+\.\d+/, message: 'has incorrect format' }
