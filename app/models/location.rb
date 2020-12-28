@@ -41,11 +41,8 @@ class Location < ApplicationRecord
       else
         self.open_weather_report = OpenWeather.new.one_call(self.lat, self.lng, true)
       end
-      if self.open_weather_report[:cod] == 200
-        self.open_weather_time = Time.now
-        self.save
-      end
-
+      self.open_weather_time = Time.now
+      self.save
     end
   end
 end
