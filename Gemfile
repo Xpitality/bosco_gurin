@@ -29,8 +29,6 @@ gem "administrate-field-mobility", "0.0.1"
 gem 'administrate-field-paperclip'
 gem 'kt-paperclip'
 gem 'aws-sdk-s3', require: false
-# gem 'open-weather'
-gem 'open-weather', git: 'https://github.com/Xpitality/ruby_open_weather_map.git'
 
 # needed by sendgrid
 gem 'mail-x_smtpapi'

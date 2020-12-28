@@ -20,5 +20,6 @@ FactoryBot.define do
     lat { '9.94' }
     lng { '76.26' }
     name { Faker::Mountain.name }
+    show_weather { !Location.where(show_weather: true).exists? }
   end
 end

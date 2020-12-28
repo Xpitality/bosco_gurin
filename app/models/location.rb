@@ -33,8 +33,7 @@ class Location < ApplicationRecord
 
   def weather_refresh
     if self.weather_refresh_needed? && !self.lat.nil? && !self.lng.nil? && ENV['OPENWEATHER_KEY']
-      options = { units: "metric", APPID: ENV['OPENWEATHER_KEY'] }
-      self.open_weather_report = OpenWeather::Current.geocode(self.lat, self.lng, options)
+      self.open_weather_report = OpenWeather.new.one_call(self.lat, self.lng)
       if self.open_weather_report[:cod] == 200
         self.open_weather_time = Time.now
         self.save
