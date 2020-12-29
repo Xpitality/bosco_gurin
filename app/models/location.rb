@@ -31,7 +31,7 @@ class Location < ApplicationRecord
   validates :elevation, presence: true, format: { with: /\d+/, message: 'has incorrect format' }
 
   def weather_refresh_needed?
-    open_weather_time.nil? || open_weather_time > OPEN_WEATHER_REFRESH_MINUTES.minute.ago
+    open_weather_time.nil? || open_weather_time > OPEN_WEATHER_REFRESH_MINUTES.minute.ago || updated_at > open_weather_time
   end
 
   def weather_refresh
@@ -42,7 +42,8 @@ class Location < ApplicationRecord
         self.open_weather_report = OpenWeather.new.one_call(self.lat, self.lng, true)
       end
       self.open_weather_time = Time.now
-      self.save
+      self.record_timestamps = false
+      self.save(validate: false)
     end
   end
 end
