@@ -18,12 +18,11 @@
 require 'open_weather'
 class Location < ApplicationRecord
 
-  OPEN_WEATHER_REFRESH_MINUTES = 6
+  OPEN_WEATHER_REFRESH_MINUTES =  Rails.env.staging? ? 6 : 60
 
   validates_uniqueness_of :weather_forecast, message:'can be enabled for only one location', if: :weather_forecast
 
   store :open_weather_report
-
 
   validates :name, presence: true
   validates :lat, presence: true, format: { with: /\d+\.\d+/, message: 'has incorrect format' }
@@ -31,11 +30,11 @@ class Location < ApplicationRecord
   validates :elevation, presence: true, format: { with: /\d+/, message: 'has incorrect format' }
 
   def weather_refresh_needed?
-    open_weather_time.nil? || open_weather_time > OPEN_WEATHER_REFRESH_MINUTES.minute.ago || updated_at > open_weather_time
+    open_weather_time.nil? || OPEN_WEATHER_REFRESH_MINUTES.minute.ago > open_weather_time || updated_at > open_weather_time
   end
 
   def weather_refresh
-    if self.weather_refresh_needed? && !self.lat.nil? && !self.lng.nil? && ENV['OPENWEATHER_KEY']
+    if self.weather_refresh_needed? && !self.lat.nil? && !self.lng.nil? && !ENV['OPENWEATHER_KEY'].nil?
       if self.weather_forecast
         self.open_weather_report = OpenWeather.new.one_call(self.lat, self.lng)
       else
@@ -43,7 +42,7 @@ class Location < ApplicationRecord
       end
       self.open_weather_time = Time.now
       self.record_timestamps = false
-      self.save(validate: false)
+      self.save
     end
   end
 end
