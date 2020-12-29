@@ -18,7 +18,7 @@
 require 'open_weather'
 class Location < ApplicationRecord
 
-  OPEN_WEATHER_REFRESH_MINUTES = 60
+  OPEN_WEATHER_REFRESH_MINUTES = 6
 
   validates_uniqueness_of :weather_forecast, message:'can be enabled for only one location', if: :weather_forecast
 
