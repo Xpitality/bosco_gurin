@@ -29,8 +29,8 @@ class Event < ApplicationRecord
   has_attached_file :image,
                     storage: :s3,
                     preserve_files: true,
-                    styles: { medium: "300x300>",
-                              thumb: "100x100>" },
+                    styles: { medium: "1260x712>",
+                              thumb: "400x400>" },
                     # default_url: "/images/:style/missing.png",
                     url: ':s3_alias_url',
                     # :s3_host_alias should be the CNAME you have set up.

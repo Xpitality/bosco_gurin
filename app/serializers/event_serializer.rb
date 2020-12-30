@@ -37,6 +37,6 @@ class EventSerializer < BaseSerializer
   end
 
   attribute :image do
-    Hash[%w(original medium thumb).map{|style| [style, object.image.url(style.to_sym)]}]
+    Hash[%w(medium thumb).map{|style| [style, object.image.url(style.to_sym)]}]
   end
 end
