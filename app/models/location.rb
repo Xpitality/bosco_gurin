@@ -26,7 +26,7 @@ class Location < ApplicationRecord
 
   validates :name, presence: true
   validates :lat, presence: true, format: { with: /\d+\.\d+/, message: 'has incorrect format' }
-  validates :lng, presence: true, format: { with: /-?\d+\.\d+/, message: 'has incorrect format' }
+  validates :lng, presence: true, format: { with: /\d+\.\d+/, message: 'has incorrect format' }
   validates :elevation, presence: true, format: { with: /\d+/, message: 'has incorrect format' }
 
   def weather_refresh_needed?

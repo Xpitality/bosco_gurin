@@ -12,8 +12,10 @@ class Notification < ApplicationRecord
   extend Mobility
   translates :text, type: :text
 
+  validates_uniqueness_of :pushed, message:'can be enabled for only one notification', if: :pushed
+
   def self.pushed
-    where(pushed: true)
+    where(pushed: true).first
   end
 
   validates :text, presence: true
