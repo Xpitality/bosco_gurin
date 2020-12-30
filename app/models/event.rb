@@ -36,7 +36,7 @@ class Event < ApplicationRecord
                     # :s3_host_alias should be the CNAME you have set up.
                     s3_host_alias: ENV['S3_HOST_ALIAS'],
                     bucket: ENV['S3_BUCKET_NAME'],
-                    path: "#{Rails.env}/images/:class/:id.:style.:extension",
+                    path: "#{Rails.env}/images/:class/:id-:style-:updated_at.:extension",
                     s3_credentials: {
                         s3_region: ENV['AWS_REGION']
                     }
