@@ -15,7 +15,7 @@ class Notification < ApplicationRecord
   validates_uniqueness_of :pushed, message:'can be enabled for only one notification', if: :pushed
 
   def self.pushed
-    where(pushed: true).first
+    where(pushed: true)
   end
 
   validates :text, presence: true
