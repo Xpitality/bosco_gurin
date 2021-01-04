@@ -8,7 +8,7 @@ ARG DOMAIN_NAME=$DOMAIN_NAME
 ARG SECRET_KEY_BASE=$SECRET_KEY_BASE
 
 ENV HOME /app
-WORKDIR $HOME
+ENV WORKDIR $HOME
 
 # Add Nodejs, Yarn to the repository and install necessary packages
 ARG BUILD_PACKAGES="build-essential"
@@ -45,7 +45,7 @@ FROM public.ecr.aws/bitnami/ruby:2.7-prod
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV HOME /app
-WORKDIR $HOME
+ENV WORKDIR $HOME
 
 # Add Nodejs to the repository and install necessary packages
 ARG REQUIRED_PACKAGES="tzdata imagemagick default-libmysqlclient-dev nodejs"
