@@ -5,8 +5,8 @@ ENV HOME /app
 ENV WORKDIR $HOME
 
 RUN apt-get update -qq \
-    && apt-get install -y --no-install-recommends apache2-utils
-#    && rm -rf /var/lib/apt/lists/*
+    && apt-get install -y --no-install-recommends apache2-utils \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY docker/web/application.conf /tmp/application.conf
 COPY docker/web/nginx.conf /tmp/nginx.conf
