@@ -9,6 +9,7 @@ ARG SECRET_KEY_BASE=$SECRET_KEY_BASE
 
 ENV HOME /app
 WORKDIR $HOME
+VOLUME $HOME
 
 # Add Nodejs, Yarn to the repository and install necessary packages
 ARG BUILD_PACKAGES="build-essential"
@@ -46,6 +47,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV HOME /app
 WORKDIR $HOME
+VOLUME $HOME
 
 # Add Nodejs to the repository and install necessary packages
 ARG REQUIRED_PACKAGES="tzdata imagemagick default-libmysqlclient-dev nodejs"
