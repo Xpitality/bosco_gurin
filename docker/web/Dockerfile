@@ -8,8 +8,8 @@ WORKDIR $HOME
 #    && apt-get install -y --no-install-recommends apache2-utils \
 #    && rm -rf /var/lib/apt/lists/*
 
-COPY public public/
-COPY docker docker/
+COPY public $HOME
+COPY docker $HOME
 COPY docker/web/application.conf /tmp/application.conf
 COPY docker/web/nginx.conf /tmp/nginx.conf
 
