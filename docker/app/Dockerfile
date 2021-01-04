@@ -55,8 +55,8 @@ RUN curl https://deb.nodesource.com/setup_12.x | bash \
     
 COPY --from=build-env $HOME $HOME
 
-RUN chmod +x "$WORKDIR/docker/app/entrypoint.sh
-ENTRYPOINT ["$WORKDIR/docker/app/entrypoint.sh"]
+RUN chmod +x docker/app/entrypoint.sh
+ENTRYPOINT ["docker/app/entrypoint.sh"]
 
 EXPOSE 3000
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
