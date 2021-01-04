@@ -9,7 +9,6 @@ ARG SECRET_KEY_BASE=$SECRET_KEY_BASE
 
 ENV HOME /app
 WORKDIR $HOME
-VOLUME $HOME
 
 # Add Nodejs, Yarn to the repository and install necessary packages
 ARG BUILD_PACKAGES="build-essential"
@@ -34,6 +33,7 @@ RUN bundle config set without 'development:test:assets' \
 RUN yarn install --pure-lockfile
 
 COPY . $HOME
+VOLUME $HOME
 
 RUN bundle exec rake assets:precompile
 
@@ -47,7 +47,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV HOME /app
 WORKDIR $HOME
-VOLUME $HOME
 
 # Add Nodejs to the repository and install necessary packages
 ARG REQUIRED_PACKAGES="tzdata imagemagick default-libmysqlclient-dev nodejs"
@@ -56,6 +55,7 @@ RUN curl https://deb.nodesource.com/setup_12.x | bash \
    && rm -rf /var/lib/apt/lists/*
     
 COPY --from=build-env $HOME $HOME
+VOLUME $HOME
 
 RUN chmod +x docker/app/entrypoint.sh
 ENTRYPOINT ["docker/app/entrypoint.sh"]

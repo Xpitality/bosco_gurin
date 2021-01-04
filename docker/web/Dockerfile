@@ -3,7 +3,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV HOME /app
 WORKDIR $HOME
-VOLUME $HOME
 
 #RUN apt-get update -qq \
 #    && apt-get install -y --no-install-recommends apache2-utils \
@@ -13,6 +12,7 @@ VOLUME $HOME
 #COPY docker $HOME
 COPY docker/web/application.conf /tmp/application.conf
 COPY docker/web/nginx.conf /tmp/nginx.conf
+VOLUME $HOME
 
 RUN chmod +x "docker/web/entrypoint.sh"
 ENTRYPOINT ["docker/web/entrypoint.sh"]
