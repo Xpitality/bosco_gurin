@@ -8,9 +8,12 @@ RUN apt-get update -qq \
 && apt-get install -y --no-install-recommends apache2-utils \
 && rm -rf /var/lib/apt/lists/*
 
-COPY docker/web/application.conf /etc/nginx/conf.d/default.conf
-COPY docker/web/nginx.conf /etc/nginx/nginx.conf
+COPY docker/web/application.conf /tmp/application.conf
+COPY docker/web/nginx.conf /tmp/nginx.conf
 VOLUME $WORKDIR
+
+envsubst '$WORKDIR' < /tmp/application.conf > /etc/nginx/conf.d/default.conf
+envsubst '$WORKDIR' < /tmp/nginx.conf > /etc/nginx/nginx.conf
 
 EXPOSE 80
 

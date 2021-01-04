@@ -55,6 +55,8 @@ RUN curl https://deb.nodesource.com/setup_12.x | bash \
     
 COPY --from=build-env $HOME $HOME
 
+VOLUME $WORKDIR
+
 RUN chmod +x /app/docker/app/entrypoint.sh
 ENTRYPOINT ["/app/docker/app/entrypoint.sh"]
 
