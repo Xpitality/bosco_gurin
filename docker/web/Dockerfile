@@ -14,8 +14,8 @@ COPY . $HOME
 COPY docker/web/application.conf /tmp/application.conf
 COPY docker/web/nginx.conf /tmp/nginx.conf
 
-RUN chmod +x docker/app/entrypoint.sh
-ENTRYPOINT ["docker/app/entrypoint.sh"]
+RUN chmod +x docker/web/entrypoint.sh
+ENTRYPOINT ["docker/web/entrypoint.sh"]
 
 EXPOSE 80
 
