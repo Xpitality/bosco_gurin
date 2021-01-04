@@ -9,7 +9,7 @@ RUN apt-get update -qq \
     && rm -rf /var/lib/apt/lists/*
 
 COPY docker/web/application.conf /tmp/application.conf
-#COPY docker/web/nginx.conf /tmp/nginx.conf
+COPY docker/web/nginx.conf /tmp/nginx.conf
 VOLUME $WORKDIR
 
 RUN chmod +x /app/docker/web/entrypoint.sh
