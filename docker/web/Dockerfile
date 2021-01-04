@@ -13,7 +13,7 @@ COPY public public/
 COPY docker/web/application.conf /tmp/application.conf
 COPY docker/web/nginx.conf /tmp/nginx.conf
 
-RUN chmod +x $WORKDIR/docker/web/entrypoint.sh
+RUN chmod +x "$WORKDIR/docker/web/entrypoint.sh"
 ENTRYPOINT ["$WORKDIR/docker/web/entrypoint.sh"]
 
 EXPOSE 80
