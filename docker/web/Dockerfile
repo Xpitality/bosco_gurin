@@ -2,7 +2,7 @@ FROM public.ecr.aws/bitnami/nginx:1.19
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV HOME /app
-WORKDIR $HOME
+ENV WORKDIR $HOME
 
 RUN apt-get update -qq \
 && apt-get install -y --no-install-recommends apache2-utils \
@@ -12,8 +12,8 @@ COPY docker/web/application.conf /tmp/application.conf
 COPY docker/web/nginx.conf /tmp/nginx.conf
 VOLUME $WORKDIR
 
-envsubst '$WORKDIR' < /tmp/application.conf > /etc/nginx/conf.d/default.conf
-envsubst '$WORKDIR' < /tmp/nginx.conf > /etc/nginx/nginx.conf
+RUN envsubst '$WORKDIR' < /tmp/application.conf > /etc/nginx/conf.d/default.conf &&
+RUN envsubst '$WORKDIR' < /tmp/nginx.conf > /etc/nginx/nginx.conf
 
 EXPOSE 80
 
