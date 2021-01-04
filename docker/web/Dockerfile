@@ -2,18 +2,19 @@ FROM public.ecr.aws/bitnami/nginx:1.19
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV HOME /app
-ENV WORKDIR $HOME
+WORKDIR $HOME
 
 #RUN apt-get update -qq \
 #    && apt-get install -y --no-install-recommends apache2-utils \
 #    && rm -rf /var/lib/apt/lists/*
 
+COPY public public/
+
 COPY docker/web/application.conf /tmp/application.conf
 COPY docker/web/nginx.conf /tmp/nginx.conf
-VOLUME $WORKDIR
 
-RUN chmod +x /app/docker/web/entrypoint.sh
-ENTRYPOINT ["/app/docker/web/entrypoint.sh"]
+RUN chmod +x $WORKDIR/docker/web/entrypoint.sh
+ENTRYPOINT ["$WORKDIR/docker/web/entrypoint.sh"]
 
 EXPOSE 80
 
