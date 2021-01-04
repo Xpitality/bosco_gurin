@@ -33,7 +33,6 @@ RUN bundle config set without 'development:test:assets' \
 RUN yarn install --pure-lockfile
 
 COPY . $HOME
-VOLUME $HOME
 
 RUN bundle exec rake assets:precompile
 
@@ -55,7 +54,6 @@ RUN curl https://deb.nodesource.com/setup_12.x | bash \
    && rm -rf /var/lib/apt/lists/*
     
 COPY --from=build-env $HOME $HOME
-VOLUME $HOME
 
 RUN chmod +x docker/app/entrypoint.sh
 ENTRYPOINT ["docker/app/entrypoint.sh"]
