@@ -8,13 +8,13 @@ WORKDIR $HOME
 #    && apt-get install -y --no-install-recommends apache2-utils \
 #    && rm -rf /var/lib/apt/lists/*
 
-COPY public .
-COPY docker .
+COPY public public/
+COPY docker docker/
 COPY docker/web/application.conf /tmp/application.conf
 COPY docker/web/nginx.conf /tmp/nginx.conf
 
-RUN chmod +x "docker/web/entrypoint.sh"
-ENTRYPOINT ["docker/web/entrypoint.sh"]
+RUN chmod +x "/app/docker/web/entrypoint.sh"
+ENTRYPOINT ["/app/docker/web/entrypoint.sh"]
 
 EXPOSE 80
 
