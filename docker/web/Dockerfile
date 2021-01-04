@@ -8,10 +8,11 @@ WORKDIR $HOME
 #    && apt-get install -y --no-install-recommends apache2-utils \
 #    && rm -rf /var/lib/apt/lists/*
 
-COPY --from=build-env public $HOME/public/
-COPY --from=build-env docker $HOME/docker/
-COPY --from=build-env docker/web/application.conf /tmp/application.conf
-COPY --from=build-env docker/web/nginx.conf /tmp/nginx.conf
+#COPY public public/
+#COPY docker docker/
+COPY . $HOME
+COPY docker/web/application.conf /tmp/application.conf
+COPY docker/web/nginx.conf /tmp/nginx.conf
 
 RUN chmod +x docker/app/entrypoint.sh
 ENTRYPOINT ["docker/app/entrypoint.sh"]
