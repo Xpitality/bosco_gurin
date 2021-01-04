@@ -12,8 +12,8 @@ COPY docker/web/application.conf /tmp/application.conf
 COPY docker/web/nginx.conf /tmp/nginx.conf
 VOLUME $WORKDIR
 
-RUN envsubst '$WORKDIR' < /tmp/application.conf > /etc/nginx/conf.d/default.conf &&
-RUN envsubst '$WORKDIR' < /tmp/nginx.conf > /etc/nginx/nginx.conf
+RUN chmod +x /app/docker/web/entrypoint.sh
+ENTRYPOINT ["/app/docker/web/entrypoint.sh"]
 
 EXPOSE 80
 
