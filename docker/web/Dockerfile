@@ -9,7 +9,7 @@ WORKDIR $HOME
 #    && rm -rf /var/lib/apt/lists/*
 
 COPY public public/
-
+COPY docker docker/
 COPY docker/web/application.conf /tmp/application.conf
 COPY docker/web/nginx.conf /tmp/nginx.conf
 
