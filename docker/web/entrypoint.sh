@@ -1,11 +1,6 @@
 #!/bin/bash
 set -e
 
-export WORKDIR
-
-envsubst '${WORKDIR}' < /tmp/application.conf > /opt/bitnami/nginx/conf/server_blocks/default.conf &&
-envsubst '${WORKDIR}' < /tmp/nginx.conf > /opt/bitnami/nginx/conf/nginx.conf
-
 ls /opt/bitnami/nginx
 ls /opt/bitnami/nginx/conf
 ls /opt/bitnami/nginx/conf/server_blocks
