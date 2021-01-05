@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+envsubst '${WORKDIR}' < /tmp/application.conf > /opt/bitnami/nginx/conf/server_blocks/default.conf 
+envsubst '${WORKDIR}' < /tmp/nginx.conf > /opt/bitnami/nginx/conf/nginx.conf
+
 echo "NGINX"
 ls /opt/bitnami/nginx
 echo "NGINX CONF"
