@@ -4,10 +4,12 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV HOME /app
 WORKDIR $HOME
 
+USER 0
 RUN apt-get update -qq \
     && apt-get install -y --no-install-recommends apache2-utils gettext-base \
     && rm -rf /var/lib/apt/lists/*
 
+USER 1001
 COPY public public/
 COPY docker docker/
 #COPY . $HOME
