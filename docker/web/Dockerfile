@@ -4,9 +4,9 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV HOME /app
 WORKDIR $HOME
 
-#RUN apt-get update -qq \
-#    && apt-get install -y --no-install-recommends apache2-utils \
-#    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update -qq \
+    && apt-get install -y --no-install-recommends apache2-utils gettext-base \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY public public/
 COPY docker docker/
