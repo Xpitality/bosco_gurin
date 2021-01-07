@@ -42,7 +42,6 @@ class Event < ApplicationRecord
                     s3_credentials: {
                         bucket: ENV['S3_BUCKET_NAME'],
                         s3_region: ENV['AWS_REGION'],
-                        s3_host_name: "s3-eu-central-1.amazonaws.com"
                     }
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
