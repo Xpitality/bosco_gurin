@@ -2,7 +2,6 @@
 set -e
 
 bundle exec db:migrate
-bundle exec db:seed
 
 if [[ $? != 0 ]]; then
   echo
