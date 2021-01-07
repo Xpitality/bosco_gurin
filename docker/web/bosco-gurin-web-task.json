@@ -30,13 +30,7 @@
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:eu-central-1:934187374409:task-definition/bosco-gurin-web-task:1",
   "family": "bosco-gurin-web-task",
-  "requiresCompatibilities": [
-    "FARGATE"
-  ],
   "networkMode": "awsvpc",
   "cpu": "256",
-  "revision": 1,
-  "status": "ACTIVE"
 }

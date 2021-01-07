@@ -106,17 +106,10 @@
   ],
   "memory": "512",
   "taskRoleArn": "arn:aws:iam::934187374409:role/ecsTaskExecutionRole",
-  "compatibilities": [
-    "EC2",
-    "FARGATE"
-  ],
-  "taskDefinitionArn": "arn:aws:ecs:eu-central-1:934187374409:task-definition/bosco-gurin-app-task:3",
   "family": "bosco-gurin-app-task",
   "requiresCompatibilities": [
     "FARGATE"
   ],
   "networkMode": "awsvpc",
   "cpu": "256",
-  "revision": 3,
-  "status": "ACTIVE"
 }
