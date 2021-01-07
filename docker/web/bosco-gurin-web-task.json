@@ -1,4 +1,4 @@
-{
+
   "executionRoleArn": "arn:aws:iam::934187374409:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
@@ -26,11 +26,10 @@
   ],
   "memory": "512",
   "taskRoleArn": "arn:aws:iam::934187374409:role/ecsTaskExecutionRole",
-  "compatibilities": [
-    "EC2",
+  "family": "bosco-gurin-web-task",
+  "requiresCompatibilities": [
     "FARGATE"
   ],
-  "family": "bosco-gurin-web-task",
   "networkMode": "awsvpc",
-  "cpu": "256",
+  "cpu": "256"
 }
