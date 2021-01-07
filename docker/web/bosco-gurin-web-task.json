@@ -38,6 +38,5 @@
   "networkMode": "awsvpc",
   "cpu": "256",
   "revision": 1,
-  "status": "ACTIVE",
-  "volumes": []
+  "status": "ACTIVE"
 }

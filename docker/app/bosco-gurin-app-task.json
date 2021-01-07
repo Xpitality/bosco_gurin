@@ -1,11 +1,9 @@
 {
-  "ipcMode": null,
   "executionRoleArn": "arn:aws:iam::934187374409:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
       "logConfiguration": {
         "logDriver": "awslogs",
-        "secretOptions": null,
         "options": {
           "awslogs-group": "/ecs/bosco-gurin-app",
           "awslogs-region": "eu-central-1",
@@ -69,11 +67,6 @@
           "value": "d4nkwlh4yu184.cloudfront.net"
         }
       ],
-      "resourceRequirements": null,
-      "ulimits": null,
-      "dnsServers": [],
-      "mountPoints": [],
-      "workingDirectory": null,
       "secrets": [
         {
           "valueFrom": "Bosco-Gurin-App-AWS-Access-Key",
@@ -125,5 +118,5 @@
   "networkMode": "awsvpc",
   "cpu": "256",
   "revision": 3,
-  "status": "ACTIVE",
+  "status": "ACTIVE"
 }
