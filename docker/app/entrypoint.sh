@@ -1,14 +1,13 @@
 #!/bin/bash
 set -e
 
-bundle exec rake db:migrate
-bundle exec rake db:seed
+bundle exec rails db:migrate
 
 if [[ $? != 0 ]]; then
   echo
   echo "== Failed to migrate. Running setup first."
   echo
-  bundle exec rake db:setup
+  bundle exec rails db:setup
 fi
 
 # Remove a potentially pre-existing server.pid for Rails.
