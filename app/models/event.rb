@@ -29,8 +29,8 @@ class Event < ApplicationRecord
   has_attached_file :image,
                     storage: :s3,
                     preserve_files: true,
-                    :s3_permissions => {
-                        :original => "private"
+                    s3_permissions: {
+                        original: "private"
                     },
                     styles: { medium: "1260x712>",
                               thumb: "400x400>" },
