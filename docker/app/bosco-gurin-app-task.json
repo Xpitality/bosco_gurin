@@ -100,7 +100,7 @@
       "memory": 512,
       "memoryReservation": 256,
       "image": "934187374409.dkr.ecr.eu-central-1.amazonaws.com/gurin:app-production",
-      "essential": false,
+      "essential": true,
       "name": "BoscoGurinApp"
     }
   ],
