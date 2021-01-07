@@ -31,7 +31,7 @@ class Event < ApplicationRecord
                     preserve_files: true,
                     s3_permissions => {
                         :original => "private"
-                    }
+                    },
                     styles: { medium: "1260x712>",
                               thumb: "400x400>" },
                     # default_url: "/images/:style/missing.png",
