@@ -13,16 +13,16 @@ class OpenWeather
     @status == 200
   end
 
-  def one_call(lat, lon, current_only=false)
+  def one_call(lat, lon, lang, current_only=false)
     @status  = false
     if current_only
       @url = 'https://api.openweathermap.org/data/2.5/weather'
-      @options = { units: "metric", APPID: ENV['OPENWEATHER_KEY'], lat: lat, lon: lon }
+      @options = { units: "metric", APPID: ENV['OPENWEATHER_KEY'], lat: lat, lon: lon, lang: lang }
     else
       @url = 'https://api.openweathermap.org/data/2.5/onecall'
       exclude = 'minutely,hourly,alerts'
       exclude += 'daily' if current_only
-      @options = { units: "metric", APPID: ENV['OPENWEATHER_KEY'], exclude:exclude, lat: lat, lon: lon }
+      @options = { units: "metric", APPID: ENV['OPENWEATHER_KEY'], exclude:exclude, lat: lat, lon: lon, lang: lang }
     end
 
     response = send_request url unless @options.empty?

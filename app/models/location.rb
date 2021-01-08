@@ -18,9 +18,9 @@
 require 'open_weather'
 class Location < ApplicationRecord
 
-  OPEN_WEATHER_REFRESH_MINUTES =  Rails.env.staging? ? 6 : 60
+  OPEN_WEATHER_REFRESH_MINUTES = Rails.env.staging? ? 6 : 60
 
-  validates_uniqueness_of :weather_forecast, message:'can be enabled for only one location', if: :weather_forecast
+  validates_uniqueness_of :weather_forecast, message: 'can be enabled for only one location', if: :weather_forecast
 
   store :open_weather_report
 
@@ -35,11 +35,46 @@ class Location < ApplicationRecord
 
   def weather_refresh
     if self.weather_refresh_needed? && !self.lat.nil? && !self.lng.nil? && !ENV['OPENWEATHER_KEY'].nil?
+
+
       if self.weather_forecast
-        self.open_weather_report = OpenWeather.new.one_call(self.lat, self.lng)
+        current_description = {}
+        daily_description = [{}, {}, {}, {}, {}, {}, {}, {}]
+
+        %w(en it de fr).each do |locale|
+          report = OpenWeather.new.one_call(self.lat, self.lng, locale)
+          current_description[locale] = report["current"]["weather"].first["description"]
+
+          report["daily"].each_with_index do |daily_report, i|
+            daily_description[i][locale] = daily_report["weather"].first["description"]
+          end
+
+          self.open_weather_report = report if locale == 'en'
+        end
+
+        current_weather = self.open_weather_report["current"]["weather"].first
+        current_weather["description_i18n"] = current_description
+        self.open_weather_report["current"]["weather"] = [current_weather]
+
+        daily_weather = self.open_weather_report["daily"]
+        daily_description.each_with_index do |description, i|
+          daily_weather[i]["weather"].first["description_i18n"] = description
+        end
+        self.open_weather_report["daily"] = daily_weather
+
       else
-        self.open_weather_report = OpenWeather.new.one_call(self.lat, self.lng, true)
+        description = {}
+        %w(en it de fr).each do |locale|
+          report = OpenWeather.new.one_call(self.lat, self.lng, locale, true)
+          description[locale] = report["weather"].first["description"]
+          self.open_weather_report = report if locale == 'en'
+        end
+        weather = self.open_weather_report["weather"].first
+        weather["description_i18n"] = description
+        self.open_weather_report["weather"] = [weather]
       end
+
+
       self.open_weather_time = Time.now
       self.record_timestamps = false
       self.save
