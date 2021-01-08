@@ -1,0 +1,35 @@
+{
+ "executionRoleArn": "arn:aws:iam::934187374409:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/bosco-gurin-web",
+          "awslogs-region": "eu-central-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "portMappings": [
+        {
+          "hostPort": 8080,
+          "protocol": "tcp",
+          "containerPort": 8080
+        }
+      ],
+      "memory": 512,
+      "memoryReservation": 256,
+      "image": "934187374409.dkr.ecr.eu-central-1.amazonaws.com/gurin:web-production",
+      "essential": true,
+      "name": "bosco-gurin-web"
+    }
+  ],
+  "memory": "512",
+  "taskRoleArn": "arn:aws:iam::934187374409:role/ecsTaskExecutionRole",
+  "family": "bosco-gurin-web-task",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "networkMode": "awsvpc",
+  "cpu": "256"
+}

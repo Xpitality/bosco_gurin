@@ -38,12 +38,12 @@ class Event < ApplicationRecord
                     url: ':s3_alias_url',
                     # :s3_host_alias should be the CNAME you have set up.
                     s3_host_alias: ENV['S3_HOST_ALIAS'],
-                    s3_host_name: "s3-eu-central-1.amazonaws.com",
-                    bucket: ENV['S3_BUCKET_NAME'],
                     path: "#{Rails.env}/images/:class/:id-:style-:updated_at.:extension",
                     s3_credentials: {
-                        s3_region: ENV['AWS_REGION']
+                        bucket: ENV['S3_BUCKET_NAME'],
+                        s3_region: ENV['AWS_REGION'],
                     }
+
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
 end
