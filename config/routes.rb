@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :links
     resources :notifications
     resources :users
+    resources :preferences
     get 'info_snow', to: 'info_snow#show'
     root to: "locations#index"
   end
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
       get 'links', to: 'links#index'
       get 'notifications', to: 'notifications#index'
       get 'info_snow_feed', to: 'info_snow#feed'
+      get 'preferences', to: 'preferences#show'
     end
   end
 end
