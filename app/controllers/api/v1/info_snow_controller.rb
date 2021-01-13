@@ -8,6 +8,7 @@ module Api
         if params['only-snow-height']
           resort = info_snow_feed.response[:resort]
           render json: { resort: {
+              WTDailyNewFallenSnowHeightResort: resort['WTDailyNewFallenSnowHeightResort'],
               WTDailyNewFallenSnowHeightArenaLow: resort['WTDailyNewFallenSnowHeightArenaLow'],
               WTDailyNewFallenSnowHeightArenaHigh: resort['WTDailyNewFallenSnowHeightArenaHigh'],
               WTDailyDateLastSnowfallResort: resort['WTDailyDateLastSnowfallResort'],
