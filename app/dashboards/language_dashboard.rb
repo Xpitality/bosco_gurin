@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class PreferenceDashboard < Administrate::BaseDashboard
+class LanguageDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -9,8 +9,9 @@ class PreferenceDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    request_timeout: Field::Number,
-    languages: Field::HasMany,
+    locale: Field::String,
+    name: Field::String,
+    preference: Field::BelongsTo,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -21,22 +22,24 @@ class PreferenceDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-  request_timeout
+  name
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-  request_timeout
-  languages
+  locale
+  name
+  preference
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-  request_timeout
-  languages
+  locale
+  name
+  preference
   ].freeze
 
   # COLLECTION_FILTERS
@@ -54,7 +57,7 @@ class PreferenceDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how events are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(p)
-    "Preferences"
+  def display_resource(language)
+    language.name
   end
 end

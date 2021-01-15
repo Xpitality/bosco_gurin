@@ -9,4 +9,5 @@
 #
 class Preference < ApplicationRecord
   validates :request_timeout, presence: true
+  has_many :languages
 end

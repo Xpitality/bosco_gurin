@@ -36,12 +36,14 @@ class Location < ApplicationRecord
   def weather_refresh
     if self.weather_refresh_needed? && !self.lat.nil? && !self.lng.nil? && !ENV['OPENWEATHER_KEY'].nil?
 
+      locales = %w(en it de fr) & Preference.first.languages.pluck(:locale)
+
 
       if self.weather_forecast
         current_description = {}
         daily_description = [{}, {}, {}, {}, {}, {}, {}, {}]
 
-        %w(en it de fr).each do |locale|
+        locales.each do |locale|
           report = OpenWeather.new.one_call(self.lat, self.lng, locale)
           current_description[locale] = report["current"]["weather"].first["description"]
 
@@ -64,7 +66,7 @@ class Location < ApplicationRecord
 
       else
         description = {}
-        %w(en it de fr).each do |locale|
+        locales.each do |locale|
           report = OpenWeather.new.one_call(self.lat, self.lng, locale, true)
           description[locale] = report["weather"].first["description"]
           self.open_weather_report = report if locale == 'en'

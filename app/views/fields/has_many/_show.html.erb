@@ -1,0 +1,5 @@
+<% if field.resources.any? %>
+  <%= field.resources.pluck(:name).join(', ') %>
+<% else %>
+  <%= t("administrate.fields.has_many.none", default: "–") %>
+<% end %>

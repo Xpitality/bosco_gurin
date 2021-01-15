@@ -9,4 +9,7 @@
 #
 class PreferenceSerializer < ActiveModel::Serializer
   attributes :request_timeout
+  attribute :languages do
+    object.languages.pluck :locale
+  end
 end

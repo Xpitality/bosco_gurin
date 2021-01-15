@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :notifications
     resources :users
     resources :preferences
+    # resources :languages
     get 'info_snow', to: 'info_snow#show'
     root to: "locations#index"
   end
