@@ -41,7 +41,7 @@ class Location < ApplicationRecord
         current_description = {}
         daily_description = [{}, {}, {}, {}, {}, {}, {}, {}]
 
-        %w(en it de fr).each do |locale|
+        %w(en it de).each do |locale|
           report = OpenWeather.new.one_call(self.lat, self.lng, locale)
           current_description[locale] = report["current"]["weather"].first["description"]
 
@@ -64,7 +64,7 @@ class Location < ApplicationRecord
 
       else
         description = {}
-        %w(en it de fr).each do |locale|
+        %w(en it de).each do |locale|
           report = OpenWeather.new.one_call(self.lat, self.lng, locale, true)
           description[locale] = report["weather"].first["description"]
           self.open_weather_report = report if locale == 'en'
