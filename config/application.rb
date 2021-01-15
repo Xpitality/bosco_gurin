@@ -20,5 +20,11 @@ module BoscoGurin
     config.i18n.available_locales = [:it, :en, :de, :fr]
     config.i18n.default_locale = :en
     config.time_zone = 'Rome'
+
+    # if defined?(Rails::Server)
+    #   config.after_initialize do
+    #     config.i18n.available_locales = Preference::VALID_LOCALES & Preference.first.languages.pluck(:locale).map { |l| l.to_sym }
+    #   end
+    # end
   end
 end

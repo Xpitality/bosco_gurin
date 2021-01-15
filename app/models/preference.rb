@@ -8,6 +8,8 @@
 #  updated_at      :datetime         not null
 #
 class Preference < ApplicationRecord
+  VALID_LOCALES = [:it, :en, :de, :fr]
+
   validates :request_timeout, presence: true
   has_many :languages
 end
