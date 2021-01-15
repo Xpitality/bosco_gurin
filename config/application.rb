@@ -17,7 +17,7 @@ module BoscoGurin
     # the framework and any gems in your application.
 
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-    config.i18n.available_locales = [:it, :en, :de]
+    config.i18n.available_locales = [:it, :en, :de, :fr]
     config.i18n.default_locale = :en
     config.time_zone = 'Rome'
   end
