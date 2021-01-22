@@ -11,8 +11,8 @@ class NotificationDashboard < Administrate::BaseDashboard
     id: Field::Number,
     text: Field::Mobility::Text,
     visible_in_app: Field::Boolean,
-    pushed_to_android_at: Field::DateTime,
-    pushed_to_ios_at: Field::DateTime,
+    pushed: Field::Boolean,
+    pushed_at: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -25,7 +25,7 @@ class NotificationDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
   text
   visible_in_app
-  created_at
+  pushed_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -33,6 +33,7 @@ class NotificationDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
   text
   visible_in_app
+  pushed_at
   created_at
   updated_at
   ].freeze

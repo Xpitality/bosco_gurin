@@ -2,13 +2,12 @@
 #
 # Table name: notifications
 #
-#  id                   :bigint           not null, primary key
-#  pushed_to_android_at :datetime
-#  pushed_to_ios_at     :datetime
-#  text                 :text(65535)
-#  visible_in_app       :boolean          default(FALSE)
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  id             :bigint           not null, primary key
+#  pushed_at      :datetime
+#  text           :text(65535)
+#  visible_in_app :boolean          default(FALSE)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 class Notification < ApplicationRecord
   extend Mobility
@@ -21,5 +20,4 @@ class Notification < ApplicationRecord
   end
 
   validates :text, presence: true
-
 end

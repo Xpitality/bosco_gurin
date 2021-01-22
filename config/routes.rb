@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     resources :events
     resources :contacts
     resources :links
-    resources :notifications
+    resources :notifications do
+      post :push
+    end
     resources :users
     resources :preferences
     # resources :languages

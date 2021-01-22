@@ -90,8 +90,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_143944) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "visible_in_app", default: false
-    t.datetime "pushed_to_android_at"
-    t.datetime "pushed_to_ios_at"
+    t.datetime "pushed_at"
   end
 
   create_table "preferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

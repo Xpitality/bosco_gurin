@@ -34,6 +34,7 @@ gem 'aws-sdk-s3', require: false
 gem 'mail-x_smtpapi'
 gem 'premailer-rails'
 
+gem 'fcm'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
