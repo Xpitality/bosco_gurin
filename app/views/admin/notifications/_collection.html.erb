@@ -64,7 +64,7 @@ to display a collection of resources in an HTML table.
             <td class="cell-data cell-data--<%= attribute.html_class %>">
               <% if resource.pushed_at.nil? %>
                 <div>
-                  <%= link_to("Push", admin_notification_push_path(resource.id), class: "button", method: :post) %>
+                  <%= link_to("Push", admin_notification_push_path(resource.id), class: "button", method: :post, data: { confirm: t("administrate.actions.confirm")}) %>
                 </div>
               <% else %>
                 <%= render_field attribute %>
