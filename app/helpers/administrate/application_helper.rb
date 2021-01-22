@@ -2,8 +2,8 @@ module Administrate
   module ApplicationHelper
     PLURAL_MANY_COUNT = 2.1
 
-    def pushed_notification
-      Notification.pushed.first
+    def visible_in_app_notification
+      Notification.visible_in_app.first
     end
 
 

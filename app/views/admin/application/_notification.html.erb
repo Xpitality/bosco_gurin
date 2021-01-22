@@ -1,8 +1,8 @@
-<% if pushed_notification %>
+<% if visible_in_app_notification %>
   <div class="flashes">
 
       <div class="flash flash-alert">
-        There is an active <%= link_to 'notification', admin_notifications_path %> that is being pushed to all devices. To turn it off, please uncheck the <i>pushed</i> checkbox.
+        There is an active <%= link_to 'notification', admin_notifications_path %> that is shown in all devices. To turn it off, please uncheck the <i>visible in app</i> checkbox.
       </div>
 
   </div>

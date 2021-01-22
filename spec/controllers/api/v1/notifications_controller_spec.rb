@@ -6,7 +6,7 @@ describe Api::V1::NotificationsController, type: :request do
   let(:endpoint) { api_v1_notifications_path }
 
   it 'returns 200 and notifications array' do
-    FactoryBot.create(:notification, pushed: true)
+    FactoryBot.create(:notification, visible_in_app: true)
 
     get endpoint, headers: headers
 
@@ -21,7 +21,7 @@ describe Api::V1::NotificationsController, type: :request do
   end
 
   it 'returns 200 and empty' do
-    FactoryBot.create(:notification, pushed: false)
+    FactoryBot.create(:notification, visible_in_app: false)
 
     get endpoint, headers: headers
 
