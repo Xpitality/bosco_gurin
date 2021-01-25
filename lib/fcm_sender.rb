@@ -10,6 +10,7 @@ class FcmSender
   end
 
   def send(text)
-    @response = @fcm.send_with_notification_key("/topics/yourTopic", notification: {body: text})
+    topic = Rails.env.production? ? "Gurin" : "GurinTest"
+    @response = @fcm.send_with_notification_key("/topics/#{topic}", notification: {body: text})
   end
 end
