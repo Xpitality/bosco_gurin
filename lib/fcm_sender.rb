@@ -15,7 +15,7 @@ class FcmSender
     # @response = @fcm.send_with_notification_key("/topics/#{topic}", notification: {body: id})
 
     text_hash.keys.each do |locale|
-      @response = @fcm.send_with_notification_key("/topics/#{topic}#{locale.capitalize}", notification: {body: text_hash[locale]})
+      @response = @fcm.send_with_notification_key("/topics/#{topic}#{locale.capitalize}", notification: {body: text_hash[locale], title: text_hash[locale].truncate_words(5)})
     end
   end
 end
