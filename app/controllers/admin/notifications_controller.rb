@@ -26,15 +26,21 @@ module Admin
       fcm = FcmSender.new
       fcm.send(Hash[I18n.available_locales.map{|l| [l, notification.send("text_#{l}".to_sym)] }], notification.id)
 
-      if fcm.response[:status_code] == 200
-        notification.pushed_at = Time.now
-        notification.save
-        status = 'success'
-      else
-        status = 'fail'
+      status = ''
+      failed = []
+      fcm.responses.keys.each do |locale|
+
+        if fcm.responses[locale][:status_code] == 200
+          notification.pushed_at = Time.now
+          notification.save
+          status = 'success'
+        else
+          status = 'fail'
+          failed << locale
+        end
       end
 
-      redirect_to admin_notifications_path, notice: translate_with_resource("notification.push.#{status}")
+      redirect_to admin_notifications_path, notice: I18n.t("administrate.controller.notification.push.#{status}", locales: failed.join(', '))
     end
 
   end
