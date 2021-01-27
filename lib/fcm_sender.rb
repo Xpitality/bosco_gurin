@@ -9,8 +9,10 @@ class FcmSender
 
   end
 
-  def send(text)
+  def send(text_hash)
     topic = Rails.env.production? ? "Gurin" : "GurinTest"
-    @response = @fcm.send_with_notification_key("/topics/#{topic}", notification: {body: text})
+    text_hash.keys.each do |locale|
+      @response = @fcm.send_with_notification_key("/topics/#{topic}#{locale.capitalize}", notification: {body: text_hash[locale]})
+    end
   end
 end

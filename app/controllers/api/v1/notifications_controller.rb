@@ -7,6 +7,11 @@ module Api
         render json: notifications, each_serializer: NotificationSerializer
       end
 
+      def show
+        notification = Notification.where(id: params[:id])
+        render json: notification
+      end
+
     end
   end
 end

@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       get 'contacts', to: 'contacts#index'
       get 'links', to: 'links#index'
       get 'notifications', to: 'notifications#index'
+      get 'notifications/:id', to: 'notifications#show'
       get 'info_snow_feed', to: 'info_snow#feed'
       get 'preferences', to: 'preferences#show'
     end
