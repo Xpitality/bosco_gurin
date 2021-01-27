@@ -24,7 +24,7 @@ module Admin
       notification = Notification.find params[:notification_id]
 
       fcm = FcmSender.new
-      fcm.send(Hash[I18n.available_locales.map{|l| [l, notification.send("text_#{l}".to_sym)] }])
+      fcm.send(Hash[I18n.available_locales.map{|l| [l, notification.send("text_#{l}".to_sym)] }], notification.id)
 
       if fcm.response[:status_code] == 200
         notification.pushed_at = Time.now
