@@ -3,7 +3,11 @@ module Api
     class NotificationsController < Api::V1::ApplicationController
 
       def index
-        notifications = Notification.visible_in_app
+        if params['last_pushed']
+          notifications = Notification.order('pushed_at DESC').first
+        else
+          notifications = Notification.visible_in_app
+        end
         render json: notifications, each_serializer: NotificationSerializer
       end
 
