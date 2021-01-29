@@ -95,6 +95,10 @@
         {
           "valueFrom": "Bosco-Gurin-App-Secret-Key-Base",
           "name": "SECRET_KEY_BASE"
+        },
+        {
+          "valueFrom": "Bosco-Gurin-App-FCM-Key",
+          "name": "FCM_SERVER_KEY"
         }
       ],
       "memory": 512,
