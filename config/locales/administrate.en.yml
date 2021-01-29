@@ -19,7 +19,7 @@ en:
       notification:
         push:
           success: "Successfully pushed to FCM"
-          fail: "Pushing to FCM failed for locales: %{locale}"
+          fail: "Pushing to FCM failed for locales: %{failed_locales}"
     fields:
       has_many:
         more: Showing %{count} of %{total_count}
