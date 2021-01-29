@@ -40,7 +40,7 @@ module Admin
         end
       end
 
-      redirect_to admin_notifications_path, notice: I18n.t("administrate.controller.notification.push.#{status}", locales: failed.join(', '))
+      redirect_to admin_notifications_path, notice: I18n.t("administrate.controller.notification.push.#{status}", locale: failed.join(', '))
     end
 
   end
