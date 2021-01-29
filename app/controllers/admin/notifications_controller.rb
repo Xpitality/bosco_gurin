@@ -1,4 +1,5 @@
 require 'fcm_sender'
+require 'bugsnag'
 
 module Admin
   class NotificationsController < Admin::ApplicationController
@@ -12,7 +13,7 @@ module Admin
         redirect_to(
             [namespace, requested_resource],
             notice: translate_with_resource("update.success"),
-            )
+        )
       else
         render :edit, locals: {
             page: Administrate::Page::Form.new(dashboard, requested_resource),
@@ -24,7 +25,7 @@ module Admin
       notification = Notification.find params[:notification_id]
 
       fcm = FcmSender.new
-      fcm.send(Hash[I18n.available_locales.map{|l| [l, notification.send("text_#{l}".to_sym)] }], notification.id)
+      fcm.send(Hash[I18n.available_locales.map { |l| [l, notification.send("text_#{l}".to_sym)] }], notification.id)
 
       status = ''
       failed = []
@@ -37,6 +38,10 @@ module Admin
         else
           status = 'fail'
           failed << locale
+
+          Bugsnag.notify(message) do |bugsnag_notification|
+            bugsnag_notification.add_tab("notification push fail for #{locale}", fcm.responses[locale])
+          end
         end
       end
 
