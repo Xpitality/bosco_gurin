@@ -5,6 +5,7 @@ module Api
       def index
         if params['last_pushed']
           notifications = Notification.order('pushed_at DESC').first
+          notifications = [] unless notifications
         else
           notifications = Notification.visible_in_app
         end
