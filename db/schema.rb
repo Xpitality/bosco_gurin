@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_15_143944) do
+ActiveRecord::Schema.define(version: 2021_02_17_125059) do
 
   create_table "contacts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_143944) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "visible_in_app", default: false
     t.datetime "pushed_at"
+    t.text "title"
   end
 
   create_table "preferences", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

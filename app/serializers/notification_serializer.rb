@@ -5,6 +5,7 @@
 #  id             :bigint           not null, primary key
 #  pushed_at      :datetime
 #  text           :text(65535)
+#  title          :text(65535)
 #  visible_in_app :boolean          default(FALSE)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
@@ -12,6 +13,10 @@
 class NotificationSerializer < BaseSerializer
   attribute :text do
     Hash[I18n.available_locales.map{|l| [l, object.send("text_#{l}".to_sym)] }]
+  end
+
+  attribute :title do
+    Hash[I18n.available_locales.map{|l| [l, object.send("title_#{l}".to_sym)] }]
   end
 
   attribute :created_at do

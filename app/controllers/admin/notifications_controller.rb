@@ -25,7 +25,9 @@ module Admin
       notification = Notification.find params[:notification_id]
 
       fcm = FcmSender.new
-      fcm.send(Hash[I18n.available_locales.map { |l| [l, notification.send("text_#{l}".to_sym)] }], notification.id)
+      text_hash = Hash[I18n.available_locales.map { |l| [l, notification.send("text_#{l}".to_sym)] }]
+      title_hash = Hash[I18n.available_locales.map { |l| [l, notification.send("title_#{l}".to_sym)] }]
+      fcm.send(text_hash, title_hash, notification.id)
 
       status = ''
       failed = []

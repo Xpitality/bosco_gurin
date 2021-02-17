@@ -5,6 +5,7 @@
 #  id             :bigint           not null, primary key
 #  pushed_at      :datetime
 #  text           :text(65535)
+#  title          :text(65535)
 #  visible_in_app :boolean          default(FALSE)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
