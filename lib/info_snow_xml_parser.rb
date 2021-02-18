@@ -88,6 +88,22 @@ class InfoSnowXmlParser
     @date = @input_hash["Date"]
     @resort = @input_hash["Resort"]
     @element_groups = @resort.delete("ElementGroup")
+  rescue Exception => e
+    @input_hash = {}
+    @destination = ""
+    @date = ""
+    @resort = {
+        WTDailyNewFallenSnowHeightResort: "",
+        WTDailyNewFallenSnowHeightArenaLow: "",
+        WTDailyNewFallenSnowHeightArenaHigh: "",
+        WTDailyDateLastSnowfallResort: "",
+        WTDailyDateLastSnowfallArena: "",
+        WTDailyDepthSnowOrtResort: "",
+        WTDailyDepthSnowOrtArenaLow: "",
+        WTDailyDepthSnowOrtArenaHigh: ""
+
+    }
+    @element_groups = []
   end
 
   def response
