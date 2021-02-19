@@ -4,13 +4,11 @@ module Api
 
       def index
         if params['last_pushed']
-          notification = Notification.order('pushed_at DESC').first
-          notification = [] unless notification
-          render json: notification, serializer: NotificationSerializer
+          notifications = Notification.order('pushed_at DESC').limit(1)
         else
           notifications = Notification.visible_in_app
-          render json: notifications, each_serializer: NotificationSerializer
         end
+        render json: notifications, each_serializer: NotificationSerializer
       end
 
       def show
