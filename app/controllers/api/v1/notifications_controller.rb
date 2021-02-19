@@ -8,6 +8,7 @@ module Api
           notifications = [] unless notifications
         else
           notifications = Notification.visible_in_app
+          notifications = [] unless notifications.first
         end
         render json: notifications, each_serializer: NotificationSerializer
       end
