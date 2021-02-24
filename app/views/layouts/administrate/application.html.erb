@@ -23,6 +23,11 @@ By default, it renders:
   </title>
   <%= render "stylesheet" %>
   <%= csrf_meta_tags %>
+  <style>
+    .von-count-holder { position:relative; }
+
+    .von-counter { position:absolute; right:30px; bottom:5px; color:#cccccc; }
+  </style>
 </head>
 <body>
   <%= render "icons" %>
