@@ -107,6 +107,6 @@ class InfoSnowXmlParser
   end
 
   def response
-    { resort: @resort, elements: @element_groups, types: TYPES, states: STATES }
+    { date: @date, resort: @resort, elements: @element_groups, types: TYPES, states: STATES }
   end
 end

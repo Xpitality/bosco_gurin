@@ -18,6 +18,8 @@ module Api
               WTDailyDepthSnowOrtArenaHigh: resort['WTDailyDepthSnowOrtArenaHigh']
           }
           }
+        elsif params['date']
+          render json: { date: info_snow_feed.response[:date] }
         else
           render json: info_snow_feed.response
         end
