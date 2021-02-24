@@ -9,8 +9,8 @@ class NotificationDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    text: Field::Mobility::Text,
-    title: Field::Mobility::Text,
+    text: Field::Mobility::Text.with_options(max_length: 170),
+    title: Field::Mobility::Text.with_options(max_length: 60),
     visible_in_app: Field::Boolean,
     pushed: Field::Boolean,
     pushed_at: Field::DateTime,

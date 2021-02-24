@@ -1,0 +1,18 @@
+<div class="field-unit__label">
+  <%= f.label field.attribute %>
+</div>
+<div class="field-unit__field">
+  <% I18n.available_locales.each do |locale| %>
+    (<%= locale %>)
+    <% if field.options[:max_length] %>
+      <%= f.voncount_text_area "#{field.attribute}_#{locale}".downcase.underscore, maxlength: field.options[:max_length], rows: 4  %>
+    <% else %>
+      <%= f.text_area "#{field.attribute}_#{locale}".downcase.underscore %>
+    <% end %>
+    <br>
+
+  <% end %>
+  <br>
+</div>
+
+
