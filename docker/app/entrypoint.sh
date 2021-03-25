@@ -1,15 +1,6 @@
 #!/bin/bash
 set -e
 
-bundle exec rails db:migrate
-
-if [[ $? != 0 ]]; then
-  echo
-  echo "== Failed to migrate. Running setup first."
-  echo
-  bundle exec rails db:setup
-fi
-
 # Remove a potentially pre-existing server.pid for Rails.
 if [ -f "/app/tmp/pids/server.pid" ] ; then
     rm -f /app/tmp/pids/server.pid
