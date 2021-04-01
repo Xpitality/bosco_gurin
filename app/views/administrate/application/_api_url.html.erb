@@ -1,0 +1,10 @@
+<% unless dashboard_from_resource(resource_name).api_url(resource).blank? %>
+  <section style="padding: 10px 30px;">
+    <small>
+      <% dashboard_from_resource(resource_name).api_url(resource).each do |api_url| %>
+        <%= link_to nil, api_url, target: '_blank' %>
+        <br>
+      <% end %>
+    </small>
+  </section>
+<% end %>

@@ -71,4 +71,8 @@ class EventDashboard < Administrate::BaseDashboard
   # def display_resource(event)
   #   "Event ##{event.id}"
   # end
+
+  def self.api_url(resource=nil)
+    ['/api/v1/events']
+  end
 end

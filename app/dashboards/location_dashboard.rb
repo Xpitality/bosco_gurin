@@ -80,4 +80,8 @@ class LocationDashboard < Administrate::BaseDashboard
   # def display_resource(location)
   #   "Location ##{location.id}"
   # end
+
+  def self.api_url(resource)
+    ['/api/v1/locations']
+  end
 end

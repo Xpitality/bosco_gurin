@@ -68,4 +68,12 @@ class NotificationDashboard < Administrate::BaseDashboard
   # def display_resource(event)
   #   "Event ##{event.id}"
   # end
+
+  def self.api_url(resource=nil)
+    if resource
+      ["/api/v1/notifications/#{resource.id}"]
+    else
+      ['/api/v1/notifications', '/api/v1/notifications?last_pushed=1']
+    end
+  end
 end
