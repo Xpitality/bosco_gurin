@@ -2,17 +2,20 @@
 #
 # Table name: locations
 #
-#  id                  :bigint           not null, primary key
-#  elevation           :integer
-#  lat                 :string(255)
-#  lng                 :string(255)
-#  name                :string(255)
-#  open_weather_report :text(65535)
-#  open_weather_time   :datetime
-#  weather_forecast    :boolean
-#  webcam              :string(255)
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  id                           :bigint           not null, primary key
+#  elevation                    :integer
+#  lat                          :string(255)
+#  lng                          :string(255)
+#  mdx_meteotest_key            :string(255)
+#  mdx_meteotest_meteo_days     :text(65535)
+#  mdx_meteotest_meteo_standard :text(65535)
+#  name                         :string(255)
+#  open_weather_report          :text(65535)
+#  open_weather_time            :datetime
+#  weather_forecast             :boolean
+#  webcam                       :string(255)
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
 #
 FactoryBot.define do
   factory :location do
