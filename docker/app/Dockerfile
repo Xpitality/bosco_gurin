@@ -13,7 +13,7 @@ WORKDIR $HOME
 # Add Nodejs, Yarn to the repository and install necessary packages
 ARG BUILD_PACKAGES="build-essential"
 ARG DEV_PACKAGES="libnotify-dev yarn"
-ARG REQUIRED_PACKAGES="tzdata imagemagick default-libmysqlclient-dev nodejs"
+ARG REQUIRED_PACKAGES="tzdata imagemagick default-libmysqlclient-dev nodejs shared-mime-info"
 RUN curl https://deb.nodesource.com/setup_12.x | bash \
     && curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
@@ -48,7 +48,7 @@ ENV HOME /app
 WORKDIR $HOME
 
 # Add Nodejs to the repository and install necessary packages
-ARG REQUIRED_PACKAGES="tzdata imagemagick default-libmysqlclient-dev nodejs"
+ARG REQUIRED_PACKAGES="tzdata imagemagick default-libmysqlclient-dev nodejs shared-mime-info"
 RUN curl https://deb.nodesource.com/setup_12.x | bash \
    && apt-get update -qq && apt-get install -y --no-install-recommends $REQUIRED_PACKAGES  \
    && rm -rf /var/lib/apt/lists/*
