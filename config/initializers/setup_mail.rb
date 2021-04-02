@@ -3,26 +3,26 @@
 
 class CategoryMailInterceptor
   def self.delivering_email(message)
-    message.smtpapi.category = ENV['DOMAIN_NAME']
+    message.smtpapi.category = Rails.application.credentials.config[:domain_name]
   end
 end
 
 ActionMailer::Base.register_interceptor(CategoryMailInterceptor) if Rails.env.production? || Rails.env.staging?
 
 ActionMailer::Base.smtp_settings = {
-  address: ENV['EMAIL_PROVIDER_ADDRESS'],
+  address: Rails.application.credentials.config[:email_provider_address],
   port: 587, # ports 587 and 2525 are also supported with STARTTLS
   enable_starttls_auto: true, # detects and uses STARTTLS
-  user_name: ENV['EMAIL_PROVIDER_USERNAME'],
-  password: ENV['EMAIL_PROVIDER_PASSWORD'],
+  user_name: Rails.application.credentials.config[:email_provider_username],
+  password: Rails.application.credentials.config[:email_provider_password],
   authentication: :plain,
-  domain: ENV['DOMAIN_NAME']
+  domain: Rails.application.credentials.config[:domain_name]
 }
 
-ActionMailer::Base.default_url_options = { host: ENV['DOMAIN_NAME'] }
+ActionMailer::Base.default_url_options = { host: Rails.application.credentials.config[:domain_name] }
 
 Premailer::Rails.config.merge!(
-  base_url: "http://#{ENV['DOMAIN_NAME']}"
+  base_url: "http://#{Rails.application.credentials.config[:domain_name]}"
 )
 
 # unless Rails.env.development?

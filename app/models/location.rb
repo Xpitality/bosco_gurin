@@ -37,7 +37,7 @@ class Location < ApplicationRecord
   end
 
   def weather_refresh
-    if self.open_weather_refresh_needed? && !self.lat.nil? && !self.lng.nil? && !ENV['OPENWEATHER_KEY'].nil?
+    if self.open_weather_refresh_needed? && !self.lat.nil? && !self.lng.nil? && !Rails.application.credentials.config[:openweather_key].nil?
 
       locales = %w(en it de fr) & Preference.first.languages.pluck(:locale)
 

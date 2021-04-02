@@ -8,7 +8,7 @@ class MdxMeteotest
   def initialize
     # https://mdx.meteotest.ch/api_v1?key=73C13ABFD6EFCBE70C0AACF6B09CE80D&service=prod2data&action=xpitality&format=jsonarray
     @url = 'https://mdx.meteotest.ch/api_v1'
-    @options = { key: ENV['MDXMETEOTEST_KEY'], service: 'prod2data', action: 'xpitality', format: 'jsonarray' }
+    @options = { key: Rails.application.credentials.config[:mdxmeteotest_key], service: 'prod2data', action: 'xpitality', format: 'jsonarray' }
   end
 
   def call
