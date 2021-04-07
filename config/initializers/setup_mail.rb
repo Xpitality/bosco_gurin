@@ -22,7 +22,7 @@ ActionMailer::Base.smtp_settings = {
 ActionMailer::Base.default_url_options = { host: Rails.application.credentials.config[:domain_name] }
 
 Premailer::Rails.config.merge!(
-  base_url: "http://#{Rails.application.credentials.config[:domain_name]}"
+  base_url: "https://#{Rails.application.credentials.config[:domain_name]}"
 )
 
 # unless Rails.env.development?
