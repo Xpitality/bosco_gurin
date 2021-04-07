@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_17_125059) do
+ActiveRecord::Schema.define(version: 2021_04_01_142324) do
 
   create_table "contacts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -58,6 +58,9 @@ ActiveRecord::Schema.define(version: 2021_02_17_125059) do
     t.text "open_weather_report"
     t.datetime "open_weather_time"
     t.boolean "weather_forecast"
+    t.text "mdx_meteotest_meteo_standard"
+    t.text "mdx_meteotest_meteo_days"
+    t.string "mdx_meteotest_key"
   end
 
   create_table "mobility_string_translations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -98,6 +101,7 @@ ActiveRecord::Schema.define(version: 2021_02_17_125059) do
     t.integer "request_timeout", default: 15
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "last_mdx_meteotest_update"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

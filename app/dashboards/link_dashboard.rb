@@ -58,4 +58,8 @@ class LinkDashboard < Administrate::BaseDashboard
   # def display_resource(event)
   #   "Event ##{event.id}"
   # end
+
+  def self.api_url(resource=nil)
+    ['/api/v1/links']
+  end
 end

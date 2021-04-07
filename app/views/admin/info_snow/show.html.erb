@@ -6,6 +6,16 @@
   </h1>
 </header>
 
+<section style="padding: 10px 30px;">
+  <small>
+    <% %w(/api/v1/info_snow_feed /api/v1/info_snow_feed?only-snow-height=1 /api/v1/info_snow_feed?date=1).each do |api_url| %>
+      <%= link_to nil, api_url, target: '_blank' %>
+      <br>
+    <% end %>
+  </small>
+</section>
+
+
 <section class="main-content__body">
   <dl>
     <dd>

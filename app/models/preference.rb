@@ -2,14 +2,34 @@
 #
 # Table name: preferences
 #
-#  id              :bigint           not null, primary key
-#  request_timeout :integer          default(15)
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id                        :bigint           not null, primary key
+#  last_mdx_meteotest_update :datetime
+#  request_timeout           :integer          default(15)
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
 #
+
+require 'mdx_meteotest'
 class Preference < ApplicationRecord
   VALID_LOCALES = [:it, :en, :de, :fr]
 
+  MDX_METEOTEST_REFRESH_MINUTES = 59
+
   validates :request_timeout, presence: true
   has_many :languages
+
+  class << self
+    def last_mdx_meteotest_update
+      Preference.first.last_mdx_meteotest_update
+    end
+
+    def last_mdx_meteotest_update!
+      Preference.first.update_attribute :last_mdx_meteotest_update, Time.now
+    end
+
+    def mdx_meteotest_refresh_needed?
+      preference = Preference.first
+      preference.last_mdx_meteotest_update.nil? || MDX_METEOTEST_REFRESH_MINUTES.minute.ago > preference.last_mdx_meteotest_update
+    end
+  end
 end

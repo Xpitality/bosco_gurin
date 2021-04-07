@@ -64,4 +64,8 @@ class UserDashboard < Administrate::BaseDashboard
   # def display_resource(user)
   #   "User ##{user.id}"
   # end
+
+  def self.api_url
+    []
+  end
 end

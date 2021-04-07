@@ -5,7 +5,7 @@ class FcmSender
   attr_reader :responses
 
   def initialize
-    @fcm = FCM.new(ENV['FCM_SERVER_KEY'])
+    @fcm = FCM.new(Rails.application.credentials.config[:fcm_server_key])
 
   end
 

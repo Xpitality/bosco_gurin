@@ -2,17 +2,20 @@
 #
 # Table name: locations
 #
-#  id                  :bigint           not null, primary key
-#  elevation           :integer
-#  lat                 :string(255)
-#  lng                 :string(255)
-#  name                :string(255)
-#  open_weather_report :text(65535)
-#  open_weather_time   :datetime
-#  weather_forecast    :boolean
-#  webcam              :string(255)
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  id                           :bigint           not null, primary key
+#  elevation                    :integer
+#  lat                          :string(255)
+#  lng                          :string(255)
+#  mdx_meteotest_key            :string(255)
+#  mdx_meteotest_meteo_days     :text(65535)
+#  mdx_meteotest_meteo_standard :text(65535)
+#  name                         :string(255)
+#  open_weather_report          :text(65535)
+#  open_weather_time            :datetime
+#  weather_forecast             :boolean
+#  webcam                       :string(255)
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
 #
 
 require 'open_weather'
@@ -29,12 +32,12 @@ class Location < ApplicationRecord
   validates :lng, presence: true, format: { with: /\d+\.\d+/, message: 'has incorrect format' }
   validates :elevation, presence: true, format: { with: /\d+/, message: 'has incorrect format' }
 
-  def weather_refresh_needed?
+  def open_weather_refresh_needed?
     open_weather_time.nil? || OPEN_WEATHER_REFRESH_MINUTES.minute.ago > open_weather_time || updated_at > open_weather_time
   end
 
   def weather_refresh
-    if self.weather_refresh_needed? && !self.lat.nil? && !self.lng.nil? && !ENV['OPENWEATHER_KEY'].nil?
+    if self.open_weather_refresh_needed? && !self.lat.nil? && !self.lng.nil? && !Rails.application.credentials.config[:openweather_key].nil?
 
       locales = %w(en it de fr) & Preference.first.languages.pluck(:locale)
 

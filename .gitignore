@@ -38,3 +38,8 @@ yarn-debug.log*
 
 docker-compose.yml
 Dockerfile.dev
+
+/config/credentials/*.txt
+/config/credentials/staging.key
+
+/config/credentials/production.key

@@ -30,4 +30,9 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  languages:
+    en: "en"
+    it: "it"
+    de: "de"
+    fr: "fr"
+

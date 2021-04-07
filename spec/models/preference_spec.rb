@@ -2,10 +2,11 @@
 #
 # Table name: preferences
 #
-#  id              :bigint           not null, primary key
-#  request_timeout :integer          default(15)
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id                        :bigint           not null, primary key
+#  last_mdx_meteotest_update :datetime
+#  request_timeout           :integer          default(15)
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
 #
 require 'rails_helper'
 

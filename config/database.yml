@@ -1,22 +1,24 @@
-
 default: &default
-  adapter: mysql2
-  encoding: utf8
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  port: <%= ENV['DB_PORT'] %>
-  host: <%= ENV['DB_HOST'] %>
-  database: <%= ENV['DB_NAME'] %>
+  adapter: <%= ENV['DB_ADAPTER'] || 'mysql2' %>
+  encoding: utf8mb4
+  pool: <%= ENV['DB_POOL'] || ENV['RAILS_MAX_THREADS'] || 5 %>
+  username: <%= Rails.application.credentials.config[:db_username] %>
+  password: <%= Rails.application.credentials.config[:db_password] %>
+  port: <%= Rails.application.credentials.config[:db_port] %>
+  host: <%= Rails.application.credentials.config[:db_host] %>
+  database: <%= Rails.application.credentials.config[:db_name] %>
 
 development:
   <<: *default
+  database: bosco_gurin_development
+  socket: /var/run/mysqld/mysqlx.sock
+
+test:
+  <<: *default
+  database: bosco_gurin_test
 
 staging:
   <<: *default
 
 production:
-  <<: *default
-
-test:
   <<: *default

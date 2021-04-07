@@ -37,11 +37,11 @@ class Event < ApplicationRecord
                     # default_url: "/images/:style/missing.png",
                     url: ':s3_alias_url',
                     # :s3_host_alias should be the CNAME you have set up.
-                    s3_host_alias: ENV['S3_HOST_ALIAS'],
+                    s3_host_alias: Rails.application.credentials.config[:aws_s3_host_alias],
                     path: "#{Rails.env}/images/:class/:id-:style-:updated_at.:extension",
                     s3_credentials: {
-                        bucket: ENV['S3_BUCKET_NAME'],
-                        s3_region: ENV['AWS_REGION'],
+                        bucket: Rails.application.credentials.config[:aws_s3_bucket_name],
+                        s3_region: Rails.application.credentials.config[:aws_s3_region],
                     }
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/

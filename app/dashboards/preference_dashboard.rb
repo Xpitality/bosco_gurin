@@ -56,4 +56,8 @@ class PreferenceDashboard < Administrate::BaseDashboard
   def display_resource(p)
     "Preferences"
   end
+
+  def self.api_url(resource=nil)
+    ['/api/v1/preferences']
+  end
 end

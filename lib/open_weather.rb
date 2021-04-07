@@ -17,12 +17,12 @@ class OpenWeather
     @status  = false
     if current_only
       @url = 'https://api.openweathermap.org/data/2.5/weather'
-      @options = { units: "metric", APPID: ENV['OPENWEATHER_KEY'], lat: lat, lon: lon, lang: lang }
+      @options = { units: "metric", APPID: Rails.application.credentials.config[:openweather_key], lat: lat, lon: lon, lang: lang }
     else
       @url = 'https://api.openweathermap.org/data/2.5/onecall'
       exclude = 'minutely,hourly,alerts'
       exclude += 'daily' if current_only
-      @options = { units: "metric", APPID: ENV['OPENWEATHER_KEY'], exclude:exclude, lat: lat, lon: lon, lang: lang }
+      @options = { units: "metric", APPID: Rails.application.credentials.config[:openweather_key], exclude:exclude, lat: lat, lon: lon, lang: lang }
     end
 
     response = send_request url unless @options.empty?
