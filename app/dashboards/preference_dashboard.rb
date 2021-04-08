@@ -11,6 +11,7 @@ class PreferenceDashboard < Administrate::BaseDashboard
     id: Field::Number,
     request_timeout: Field::Number,
     languages: Field::HasMany,
+    last_mdx_meteotest_update: Field::DateTime,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -29,6 +30,7 @@ class PreferenceDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
   request_timeout
   languages
+  last_mdx_meteotest_update
   ].freeze
 
   # FORM_ATTRIBUTES

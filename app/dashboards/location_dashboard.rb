@@ -15,8 +15,11 @@ class LocationDashboard < Administrate::BaseDashboard
     elevation: Field::Number,
     webcam: Field::String,
     open_weather_report: Field::Text,
+    mdx_meteotest_meteo_days: Field::Text,
+    mdx_meteotest_meteo_standard: Field::Text,
     open_weather_time: Field::DateTime,
     weather_forecast: Field::Boolean,
+    mdx_meteotest_key: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -46,6 +49,9 @@ class LocationDashboard < Administrate::BaseDashboard
   weather_forecast
   open_weather_report
   open_weather_time
+  mdx_meteotest_key
+  mdx_meteotest_meteo_days
+  mdx_meteotest_meteo_standard
   created_at
   updated_at
   ].freeze
@@ -56,6 +62,7 @@ class LocationDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
   name
   weather_forecast
+  mdx_meteotest_key
   lng
   lat
   elevation
