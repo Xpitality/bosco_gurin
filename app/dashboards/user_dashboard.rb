@@ -65,7 +65,7 @@ class UserDashboard < Administrate::BaseDashboard
   #   "User ##{user.id}"
   # end
 
-  def self.api_url
+  def self.api_url(resource=nil)
     []
   end
 end
