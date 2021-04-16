@@ -39,7 +39,7 @@ class Location < ApplicationRecord
   end
 
   def missing_mdx_meteo
-     true  #!mdx_meteotest_key.blank? && (mdx_meteotest_meteo_days.blank? || mdx_meteotest_meteo_standard.blank?)
+     !mdx_meteotest_key.blank? && (mdx_meteotest_meteo_days.blank? || mdx_meteotest_meteo_standard.blank?)
   end
 
   def weather_refresh
