@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get 'locations', to: 'locations#index'
+      get 'mdx_weather_descriptions', to: 'locations#mdx_weather_descriptions'
+      get 'mdx_weather_description/:id', to: 'locations#mdx_weather_description'
       get 'events', to: 'events#index'
       get 'contacts', to: 'contacts#index'
       get 'links', to: 'links#index'

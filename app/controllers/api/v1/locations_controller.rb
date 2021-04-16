@@ -15,8 +15,8 @@ module Api
 
               i = 0
               location.mdx_meteotest_meteo_days = location.mdx_meteotest_meteo_days.map do |d|
-                d[:day_name]=(Date.today + i).strftime("%A")
-                i +=1
+                d[:day_name] = (Date.today + i).strftime("%A")
+                i += 1
                 d
               end
               location.save
@@ -33,6 +33,13 @@ module Api
         render json: locations, include: '**', each_serializer: LocationSerializer
       end
 
+      def mdx_weather_descriptions
+        render json: MdxMeteotest::WEATHER_DESCRIPTIONS.to_json
+      end
+
+      def mdx_weather_description
+        render json: MdxMeteotest::WEATHER_DESCRIPTIONS[params['id'].to_i].to_json
+      end
     end
   end
 end
