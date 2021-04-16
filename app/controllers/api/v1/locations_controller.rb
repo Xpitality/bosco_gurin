@@ -12,7 +12,15 @@ module Api
             Location.all.each do |location|
               location.mdx_meteotest_meteo_standard = mdx_meteotest.meteo_standard[location.mdx_meteotest_key]
               location.mdx_meteotest_meteo_days = mdx_meteotest.meteo_days[location.mdx_meteotest_key]
+
+              i = 0
+              location.mdx_meteotest_meteo_days = location.mdx_meteotest_meteo_days.map do |d|
+                d[:day_name]=(Date.today + i).strftime("%A")
+                i +=1
+                d
+              end
               location.save
+              location.reload
             end
             Preference.last_mdx_meteotest_update!
           end
