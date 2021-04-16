@@ -19,6 +19,7 @@ class LocationDashboard < Administrate::BaseDashboard
     mdx_meteotest_meteo_standard: Field::Text,
     open_weather_time: Field::DateTime,
     weather_forecast: Field::Boolean,
+    missing_mdx_meteo: Field::Boolean,
     mdx_meteotest_key: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -33,6 +34,8 @@ class LocationDashboard < Administrate::BaseDashboard
   id
   name
   weather_forecast
+  mdx_meteotest_key
+  missing_mdx_meteo
   lng
   lat
   ].freeze

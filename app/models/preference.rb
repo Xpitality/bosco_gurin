@@ -28,8 +28,9 @@ class Preference < ApplicationRecord
     end
 
     def mdx_meteotest_refresh_needed?
+      incomplete_location_report = Location.all.any?{|l| l.missing_mdx_meteo }
       preference = Preference.first
-      preference.last_mdx_meteotest_update.nil? || MDX_METEOTEST_REFRESH_MINUTES.minute.ago > preference.last_mdx_meteotest_update
+      incomplete_location_report || preference.last_mdx_meteotest_update.nil? || MDX_METEOTEST_REFRESH_MINUTES.minute.ago > preference.last_mdx_meteotest_update
     end
   end
 end
