@@ -15,11 +15,11 @@ end
 
 puts '---', ' ', 'Seeding locations', ' '
 [
-    { name: 'Sonnenberg', weather_forecast: true, lng: 8.447897368060037, lat: 46.313237079597194, elevation: 2400, webcam: 'https://tuks.ch/webcam/bosco7000M.jpg', mdx_meteotest_key: '46.3132371, 8.4478977'},
-    { name: 'Guriner Furka', weather_forecast: false, lng: 8.453941633227059, lat: 46.32362148936983, elevation: 2320, webcam: 'https://tuks.ch/webcam/bosco6000M.jpg', mdx_meteotest_key: '46.3236215, 8.4539416'},
-    { name: 'Rossboda', weather_forecast: false, lng: 8.46577957067739, lat: 46.315896652863024, elevation: 2000, webcam: 'https://tuks.ch/webcam/bosco1.jpg?1416844635639', mdx_meteotest_key: '46.3158967, 8.4657796'},
-    { name: 'Kids Village', weather_forecast: false, lng: 8.487836065277635, lat: 46.315534542944825, elevation: 1500, webcam: 'https://tuks.ch/webcam/bosco3.jpg?1416844686748', mdx_meteotest_key: '46.3155345, 8.4878361'},
-    { name: 'Paese', weather_forecast: false, lng: 8.49345797523924, lat: 46.31716477600904, elevation: 1500, webcam: 'https://www.bosco-gurin.ch/bg_webcam.jpg', mdx_meteotest_key: '46.3171648, 8.4934580'}
+    { name: 'Sonnenberg', weather_forecast: true, lng: 8.447897368060037, lat: 46.313237079597194, elevation: 2400, webcam: 'https://tuks.ch/webcam/bosco7000M.jpg', mdx_meteotest_key: 'snnbrg01'},
+    { name: 'Guriner Furka', weather_forecast: false, lng: 8.453941633227059, lat: 46.32362148936983, elevation: 2320, webcam: 'https://tuks.ch/webcam/bosco6000M.jpg', mdx_meteotest_key: 'grnfrk01'},
+    { name: 'Rossboda', weather_forecast: false, lng: 8.46577957067739, lat: 46.315896652863024, elevation: 2000, webcam: 'https://tuks.ch/webcam/bosco1.jpg?1416844635639', mdx_meteotest_key: 'rssbd001'},
+    { name: 'Kids Village', weather_forecast: false, lng: 8.487836065277635, lat: 46.315534542944825, elevation: 1500, webcam: 'https://tuks.ch/webcam/bosco3.jpg?1416844686748', mdx_meteotest_key: 'kdsvlg01'},
+    { name: 'Paese', weather_forecast: false, lng: 8.49345797523924, lat: 46.31716477600904, elevation: 1500, webcam: 'https://www.bosco-gurin.ch/bg_webcam.jpg', mdx_meteotest_key: 'grnps001'}
 ].each do |location_params|
   l = Location.create location_params
   puts "location created: #{l.name}"
