@@ -19,10 +19,6 @@ module Api
                 i += 1
                 d
               end
-              location.mdx_meteotest_meteo_standard = location.mdx_meteotest_meteo_standard.map do |m|
-                m["n"] ||= (0..8).to_a.sample
-                m
-              end
               location.save
               location.reload
             end
