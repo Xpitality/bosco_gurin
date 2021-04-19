@@ -1,119 +1,65 @@
 {
-  "executionRoleArn": "arn:aws:iam::934187374409:role/ecsTaskExecutionRole",
-  "containerDefinitions": [
-    {
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "options": {
-          "awslogs-group": "/ecs/bosco-gurin-app",
-          "awslogs-region": "eu-central-1",
-          "awslogs-stream-prefix": "ecs"
-        }
-      },
-      "portMappings": [
-        {
-          "hostPort": 3000,
-          "protocol": "tcp",
-          "containerPort": 3000
-        }
-      ],
-      "environment": [
-        {
-          "name": "AWS_REGION",
-          "value": "eu-central-1"
-        },
-        {
-          "name": "DB_HOST",
-          "value": "db.xpitality.com"
-        },
-        {
-          "name": "DB_NAME",
-          "value": "bosco-gurin-app"
-        },
-        {
-          "name": "DB_PORT",
-          "value": "3306"
-        },
-        {
-          "name": "DB_USERNAME",
-          "value": "bosco-gurin-app"
-        },
-        {
-          "name": "DOMAIN_NAME",
-          "value": "app.bosco-gurin.ch"
-        },
-        {
-          "name": "EMAIL_PROVIDER_ADDRESS",
-          "value": "smtp.sendgrid.net"
-        },
-        {
-          "name": "EMAIL_PROVIDER_USERNAME",
-          "value": "apikey"
-        },
-        {
-          "name": "NODE_ENV",
-          "value": "production"
-        },
-        {
-          "name": "RAILS_ENV",
-          "value": "production"
-        },
-        {
-          "name": "S3_BUCKET_NAME",
-          "value": "ch-bosco-gurin-app"
-        },
-        {
-          "name": "S3_HOST_ALIAS",
-          "value": "d4nkwlh4yu184.cloudfront.net"
-        }
-      ],
-      "secrets": [
-        {
-          "valueFrom": "Bosco-Gurin-App-AWS-Access-Key",
-          "name": "AWS_ACCESS_KEY_ID"
-        },
-        {
-          "valueFrom": "Bosco-Gurin-App-AWS-Secret-Key",
-          "name": "AWS_SECRET_ACCESS_KEY"
-        },
-        {
-          "valueFrom": "Bosco-Gurin-App-Bugsnag-Key",
-          "name": "BUGSNAG_API_KEY"
-        },
-        {
-          "valueFrom": "Bosco-Gurin-App-DB-Pass",
-          "name": "DB_PASSWORD"
-        },
-        {
-          "valueFrom": "Bosco-Gurin-App-Sendgrid-Key",
-          "name": "EMAIL_PROVIDER_PASSWORD"
-        },
-        {
-          "valueFrom": "Bosco-Gurin-App-OpenWeather-Key",
-          "name": "OPENWEATHER_KEY"
-        },
-        {
-          "valueFrom": "Bosco-Gurin-App-Secret-Key-Base",
-          "name": "SECRET_KEY_BASE"
-        },
-        {
-          "valueFrom": "Bosco-Gurin-App-FCM-Key",
-          "name": "FCM_SERVER_KEY"
-        }
-      ],
-      "memory": 512,
-      "memoryReservation": 256,
-      "image": "934187374409.dkr.ecr.eu-central-1.amazonaws.com/gurin:app-production",
-      "essential": true,
-      "name": "BoscoGurinApp"
-    }
-  ],
-  "memory": "512",
-  "taskRoleArn": "arn:aws:iam::934187374409:role/ecsTaskExecutionRole",
-  "family": "bosco-gurin-app-task",
-  "requiresCompatibilities": [
-    "FARGATE"
-  ],
-  "networkMode": "awsvpc",
-  "cpu": "256"
+   "executionRoleArn":"arn:aws:iam::934187374409:role/ecsTaskExecutionRole",
+   "containerDefinitions":[
+      {
+         "logConfiguration":{
+            "logDriver":"awslogs",
+            "options":{
+               "awslogs-group":"/ecs/bosco-gurin-app",
+               "awslogs-region":"eu-central-1",
+               "awslogs-stream-prefix":"ecs"
+            }
+         },
+         "portMappings":[
+            {
+               "hostPort":3000,
+               "protocol":"tcp",
+               "containerPort":3000
+            }
+         ],
+         "environment":[
+            {
+               "name":"NODE_ENV",
+               "value":"production"
+            },
+            {
+               "name":"RAILS_ENV",
+               "value":"production"
+            },
+            {
+               "name":"RAILS_LOG_TO_STDOUT",
+               "value":"true"
+            },
+            {
+               "name":"RAILS_SERVE_STATIC_FILES",
+               "value":"true"
+            }
+         ],
+         "secrets":[
+            {
+               "valueFrom":"Bosco-Gurin-App-Rails-Master-Key",
+               "name":"RAILS_MASTER_KEY"
+            }
+         ],
+         "memory":512,
+         "memoryReservation":256,
+         "image":"934187374409.dkr.ecr.eu-central-1.amazonaws.com/gurin:app-production",
+         "essential":true,
+         "name":"BoscoGurinApp"
+      }
+   ],
+   "memory":"512",
+   "taskRoleArn":"arn:aws:iam::934187374409:role/ecsTaskExecutionRole",
+   "family":"bosco-gurin-app-task",
+   "requiresCompatibilities":[
+      "FARGATE"
+   ],
+   "networkMode":"awsvpc",
+   "cpu":"256",
+   "tags":[
+      {
+         "key":"client",
+         "value":"bosco-gurin"
+      }
+   ]
 }
