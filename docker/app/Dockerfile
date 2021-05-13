@@ -25,11 +25,6 @@ RUN bundle config set without 'development:test:assets' \
 && bundle config set --local path 'vendor/bundle' \
 && bundle install -j"$(nproc)" --retry 3
 
-# Remove unneeded files (cached *.gem, *.o, *.c)
-# && rm -rf vendor/bundle/ruby/2.7.0/cache/*.gem \
-# && find vendor/bundle/ruby/2.7.0/gems/ -name "*.c" -delete \
-# && find vendor/bundle/ruby/2.7.0/gems/ -name "*.o" -delete
-
 RUN yarn install --ignore-optional --non-interactive
 
 COPY . $HOME
