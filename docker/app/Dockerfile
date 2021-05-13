@@ -35,7 +35,7 @@ COPY . $HOME
 RUN bundle exec rails assets:precompile
 
 # Remove folders not needed in resulting image
-RUN rm -rf node_modules tmp/cache app/assets/images app/assets/stylesheets vendor/assets spec
+RUN rm -rf node_modules tmp/cache app/assets/images app/assets/stylesheets vendor/assets spec \
 && rm -rf vendor/bundle/ruby/2.7.0/cache/*.gem \
 && find vendor/bundle/ruby/2.7.0/gems/ -name "*.c" -delete \
 && find vendor/bundle/ruby/2.7.0/gems/ -name "*.o" -delete
