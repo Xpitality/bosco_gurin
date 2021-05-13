@@ -28,7 +28,7 @@ RUN bundle config set without 'development:test:assets' \
 # && find vendor/bundle/ruby/2.7.0/gems/ -name "*.c" -delete \
 # && find vendor/bundle/ruby/2.7.0/gems/ -name "*.o" -delete
 
-RUN yarn install --ignore-optional --non-interactive
+&& RUN yarn install --ignore-optional
 
 COPY . $HOME
 
