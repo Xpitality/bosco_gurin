@@ -69,6 +69,9 @@ COPY --chown=xpitality --from=dependencies /tmp/vendor/bundle/ /app/vendor/bundl
 # Note that we have to use `--chown` here
 COPY --chown=xpitality --from=dependencies /tmp/node_modules/ /app/node_modules/
 
+# Copy bundle files from the dependencies stage
+COPY --chown=xpitality --from=dependencies /usr/local/bundle/ /usr/local/bundle/
+
 RUN bundle exec rails assets:precompile
 
 # Remove folders not needed in resulting image
