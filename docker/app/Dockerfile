@@ -29,7 +29,7 @@ ARG RAILS_ENV=$RAILS_ENV
 ARG NODE_ENV=$NODE_ENV
 ARG RAILS_MASTER_KEY=$RAILS_MASTER_KEY
 
-WORKDIR /tmp
+WORKDIR /app
 
 RUN bundle config set without 'development:test:assets' \
  && bundle config set deployment true \
