@@ -63,11 +63,11 @@ WORKDIR /app
 COPY --chown=xpitality . ./
 
 # Copy over gems from the dependencies stage
-COPY --chown=xpitality --from=dependencies /tmp/vendor/bundle/ vendor/bundle/
+COPY --chown=xpitality --from=dependencies /tmp/vendor/bundle/ /app/vendor/bundle/
 
 # Copy over npm packages from the dependencies stage
 # Note that we have to use `--chown` here
-COPY --chown=xpitality --from=dependencies /tmp/node_modules/ node_modules/
+COPY --chown=xpitality --from=dependencies /tmp/node_modules/ /app/node_modules/
 
 # Finally, copy over the code
 # This is where the .dockerignore file comes into play
