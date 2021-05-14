@@ -49,7 +49,7 @@ EXPOSE 3000
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
 
 # Create a dedicated user for running the application
-RUN RUN adduser --disabled-password --gecos '' xpitality
+RUN adduser --disabled-password --gecos '' xpitality
 
 # Set the user for RUN, CMD or ENTRYPOINT calls from now on
 # Note that this doesn't apply to COPY or ADD, which use a --chown argument instead
