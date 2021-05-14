@@ -29,6 +29,8 @@ ARG RAILS_ENV=$RAILS_ENV
 ARG NODE_ENV=$NODE_ENV
 ARG RAILS_MASTER_KEY=$RAILS_MASTER_KEY
 
+ENV BUNDLE_APP_CONFIG="/app/.bundle"
+
 WORKDIR /app
 
 RUN bundle config set without 'development:test:assets' \
@@ -60,7 +62,7 @@ WORKDIR /app
 # Copy over the code
 # This is where the .dockerignore file comes into play
 # Note that we have to use `--chown` here
-COPY --chown=xpitality . ./
+COPY --chown=xpitality /app/ /app/
 
 # Copy over gems from the dependencies stage
 COPY --chown=xpitality --from=dependencies /tmp/vendor/bundle/ /app/vendor/bundle/
@@ -68,11 +70,6 @@ COPY --chown=xpitality --from=dependencies /tmp/vendor/bundle/ /app/vendor/bundl
 # Copy over npm packages from the dependencies stage
 # Note that we have to use `--chown` here
 COPY --chown=xpitality --from=dependencies /tmp/node_modules/ /app/node_modules/
-
-# Finally, copy over the code
-# This is where the .dockerignore file comes into play
-# Note that we have to use `--chown` here
-COPY --chown=xpitality . ./
 
 RUN bundle exec rails assets:precompile
 
@@ -87,3 +84,4 @@ RUN rm -rf node_modules tmp/cache app/assets/images app/assets/stylesheets vendo
 ENV RAILS_ENV=$RAILS_ENV
 ENV NODE_ENV=$NODE_ENV
 ENV RAILS_MASTER_KEY=$RAILS_MASTER_KEY
+ENV BUNDLE_APP_CONFIG="/app/.bundle"
