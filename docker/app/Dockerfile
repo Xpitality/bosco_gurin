@@ -6,11 +6,13 @@ ARG REQUIRED_PACKAGES="tzdata imagemagick default-libmysqlclient-dev nodejs shar
 RUN curl https://deb.nodesource.com/setup_12.x | bash \
  && apt-get update -qq \
  && apt-get install -y --no-install-recommends $REQUIRED_PACKAGES  \
+ && rm -rf /var/lib/apt/lists/*
 
 ######
 
 # This stage will be responsible for installing gems and npm packages
 FROM base AS dependencies
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Add Yarn to the repository and install build packages
 ARG BUILD_PACKAGES="build-essential"
@@ -21,7 +23,7 @@ RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && apt-get install -y --no-install-recommends $BUILD_PACKAGES $DEV_PACKAGES  \
  && rm -rf /var/lib/apt/lists/*
 
-COPY Gemfile* package.json yarn.lock /app
+COPY Gemfile* package.json yarn.lock /app/
 
 ARG RAILS_ENV=$RAILS_ENV
 ARG NODE_ENV=$NODE_ENV
@@ -30,8 +32,8 @@ ARG RAILS_MASTER_KEY=$RAILS_MASTER_KEY
 WORKDIR /tmp
 
 RUN bundle config set without 'development:test:assets' \
- && bundle config set deployment true
- && bundle config set path='/tmp/vendor/bundle'
+ && bundle config set deployment true \
+ && bundle config set path='/tmp/vendor/bundle' \
  && bundle install -j"$(nproc)" --retry 3
 
 RUN yarn install --ignore-optional --non-interactive --frozen-lockfile --modules-folder /tmp/node_modules
@@ -40,6 +42,7 @@ RUN yarn install --ignore-optional --non-interactive --frozen-lockfile --modules
 
 # We're back at the base stage
 FROM base
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENTRYPOINT ["docker/app/entrypoint.sh"]
 EXPOSE 3000
