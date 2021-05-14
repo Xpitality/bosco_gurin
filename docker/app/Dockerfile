@@ -1,32 +1,75 @@
-FROM public.ecr.aws/bitnami/ruby:2.7 as build-env
+FROM public.ecr.aws/bitnami/ruby:2.7-prod as base
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-WORKDIR /app
+# Add Nodejs to the repository and install necessary packages
+ARG REQUIRED_PACKAGES="tzdata imagemagick default-libmysqlclient-dev nodejs shared-mime-info"
+RUN curl https://deb.nodesource.com/setup_12.x | bash \
+ && apt-get update -qq \
+ && apt-get install -y --no-install-recommends $REQUIRED_PACKAGES  \
 
-# Add Nodejs, Yarn to the repository and install necessary packages
+######
+
+# This stage will be responsible for installing gems and npm packages
+FROM base AS dependencies
+
+# Add Yarn to the repository and install build packages
 ARG BUILD_PACKAGES="build-essential"
 ARG DEV_PACKAGES="libnotify-dev yarn"
-ARG REQUIRED_PACKAGES="tzdata imagemagick default-libmysqlclient-dev nodejs"
-RUN curl https://deb.nodesource.com/setup_12.x | bash \
- && curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
  && apt-get update -qq \
- && apt-get install -y --no-install-recommends $BUILD_PACKAGES $DEV_PACKAGES $REQUIRED_PACKAGES  \
+ && apt-get install -y --no-install-recommends $BUILD_PACKAGES $DEV_PACKAGES  \
  && rm -rf /var/lib/apt/lists/*
 
-COPY ["Gemfile*", "package.json", "yarn.lock", "/app"]
+COPY Gemfile* package.json yarn.lock /app
 
 ARG RAILS_ENV=$RAILS_ENV
 ARG NODE_ENV=$NODE_ENV
 ARG RAILS_MASTER_KEY=$RAILS_MASTER_KEY
 
+WORKDIR /tmp
+
 RUN bundle config set without 'development:test:assets' \
- && bundle config set --local path 'vendor/bundle' \
+ && bundle config set deployment true
+ && bundle config set path='/tmp/vendor/bundle'
  && bundle install -j"$(nproc)" --retry 3
 
-RUN yarn install --ignore-optional --non-interactive
+RUN yarn install --ignore-optional --non-interactive --frozen-lockfile --modules-folder /tmp/node_modules
 
-COPY . /app
+#####
+
+# We're back at the base stage
+FROM base
+
+ENTRYPOINT ["docker/app/entrypoint.sh"]
+EXPOSE 3000
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+
+# Create a dedicated user for running the application
+RUN adduser -D xpitality
+
+# Set the user for RUN, CMD or ENTRYPOINT calls from now on
+# Note that this doesn't apply to COPY or ADD, which use a --chown argument instead
+USER xpitality
+
+WORKDIR /app
+
+# Copy over the code
+# This is where the .dockerignore file comes into play
+# Note that we have to use `--chown` here
+COPY --chown=xpitality . ./
+
+# Copy over gems from the dependencies stage
+COPY --chown=xpitality --from=dependencies /tmp/vendor/bundle/ vendor/bundle/
+
+# Copy over npm packages from the dependencies stage
+# Note that we have to use `--chown` here
+COPY --chown=xpitality --from=dependencies /tmp/node_modules/ node_modules/
+
+# Finally, copy over the code
+# This is where the .dockerignore file comes into play
+# Note that we have to use `--chown` here
+COPY --chown=xpitality . ./
 
 RUN bundle exec rails assets:precompile
 
@@ -36,26 +79,7 @@ RUN rm -rf node_modules tmp/cache app/assets/images app/assets/stylesheets vendo
  && find vendor/bundle/ruby/2.7.0/gems/ -name "*.c" -delete \
  && find vendor/bundle/ruby/2.7.0/gems/ -name "*.o" -delete
 
-############### Build step done ###############
-
-FROM public.ecr.aws/bitnami/ruby:2.7-prod
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
-ENTRYPOINT ["docker/app/entrypoint.sh"]
-EXPOSE 3000
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
-
-WORKDIR /app
-
-# Add Nodejs to the repository and install necessary packages
-ARG REQUIRED_PACKAGES="tzdata imagemagick default-libmysqlclient-dev nodejs shared-mime-info"
-RUN curl https://deb.nodesource.com/setup_12.x | bash \
- && apt-get update -qq && apt-get install -y --no-install-recommends $REQUIRED_PACKAGES  \
- && rm -rf /var/lib/apt/lists/*
-
-COPY --from=build-env /app /app
-
-RUN chmod +x docker/app/entrypoint.sh
+# RUN chmod +x docker/app/entrypoint.sh
 
 ENV RAILS_ENV=$RAILS_ENV
 ENV NODE_ENV=$NODE_ENV
