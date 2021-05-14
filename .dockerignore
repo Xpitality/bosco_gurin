@@ -1,5 +1,6 @@
 # Ignore git files
 .git
+.gitignore
 
 # Ignore bundler config.
 /.bundle
@@ -25,9 +26,16 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+# Ignore yarn files
 /public/packs
 /public/packs-test
 /node_modules
 /yarn-error.log
 yarn-debug.log*
 .env
+
+# Ignore Mac files
+.DS_Store
+
+# Ignore README file
+README.md
