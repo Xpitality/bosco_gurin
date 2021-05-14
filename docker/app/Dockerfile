@@ -33,7 +33,7 @@ WORKDIR /tmp
 
 RUN bundle config set without 'development:test:assets' \
  && bundle config set deployment true \
- && bundle config set path='/tmp/vendor/bundle' \
+ && bundle config set path '/tmp/vendor/bundle' \
  && bundle install -j"$(nproc)" --retry 3
 
 RUN yarn install --ignore-optional --non-interactive --frozen-lockfile --modules-folder /tmp/node_modules
