@@ -235,7 +235,7 @@ GEM
       actionmailer (>= 3)
       premailer (~> 1.7, >= 1.7.9)
     public_suffix (4.0.6)
-    puma (4.3.7)
+    puma (4.3.8)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
@@ -403,7 +403,7 @@ DEPENDENCIES
   mobility (~> 0.8.13)
   mysql2
   premailer-rails
-  puma (~> 4.1)
+  puma (~> 4.3)
   rails (~> 6.0.3, >= 6.0.3.4)
   rails-controller-testing
   rspec-collection_matchers
