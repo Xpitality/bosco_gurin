@@ -42,6 +42,8 @@ class Event < ApplicationRecord
                     s3_credentials: {
                         bucket: Rails.application.credentials.config[:aws_s3_bucket],
                         s3_region: Rails.application.credentials.config[:aws_s3_region],
+                        access_key_id: Rails.application.credentials.config[:aws_s3_access_key_id],
+                        secret_access_key: Rails.application.credentials.config[:aws_s3_secret_access_key]
                     }
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
