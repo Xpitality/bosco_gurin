@@ -40,7 +40,7 @@ class Event < ApplicationRecord
                     s3_host_alias: Rails.application.credentials.config[:aws_s3_host_alias],
                     path: "#{Rails.env}/images/:class/:id-:style-:updated_at.:extension",
                     s3_credentials: {
-                        bucket: Rails.application.credentials.config[:aws_s3_bucket_name],
+                        bucket: Rails.application.credentials.config[:aws_s3_bucket],
                         s3_region: Rails.application.credentials.config[:aws_s3_region],
                     }
 
